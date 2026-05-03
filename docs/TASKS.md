@@ -8,7 +8,7 @@
 
 ## Phase 0 — Project Bootstrap
 
-### [ ] T0.1 — Verify Laravel installation
+### [x] T0.1 — Verify Laravel installation
 - **Goal:** confirm fresh Laravel project is ready
 - **Steps:**
   - Run `php artisan --version` (must be Laravel 11+)
@@ -17,7 +17,7 @@
   - Create the database: `mysql -u root -p -e "CREATE DATABASE medical_platform CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"`
 - **Verify:** `php artisan migrate` runs (against empty DB, creates default Laravel tables)
 
-### [ ] T0.2 — Install required packages
+### [x] T0.2 — Install required packages
 - **Goal:** install all third-party dependencies
 - **Steps:**
   ```bash
@@ -29,7 +29,7 @@
   ```
 - **Verify:** `composer.json` includes all packages; `vendor/` populated
 
-### [ ] T0.3 — Publish package configs
+### [x] T0.3 — Publish package configs
 - **Goal:** publish migration files and configs we need
 - **Steps:**
   - `php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"`
@@ -37,7 +37,9 @@
   - **Important:** review Spatie's `model_has_roles` migration — we will replace it with our `user_roles` table that has `hospital_id`. Either delete that migration or rename Spatie's `model_has_roles` table reference to point at `user_roles` via `config/permission.php`.
 - **Verify:** `config/permission.php` and `config/audit.php` exist
 
-### [ ] T0.4 — Set up Materio template
+### [x] T0.4 — Set up Materio template
+
+- path /Users/fadl/Desktop/www/health-links/materio-bootstrap-html-admin-template-free-v3.0.0
 - **Goal:** integrate Materio Bootstrap admin template (RTL)
 - **Steps:**
   - Copy Materio assets (`assets/css`, `assets/js`, `assets/img`, `assets/vendor`) into `public/assets/`
@@ -49,7 +51,7 @@
   - Create partials: `resources/views/layouts/partials/{sidebar,navbar,footer}.blade.php`
 - **Verify:** load any route, page renders with Materio styling and RTL layout
 
-### [ ] T0.5 — Configure Arabic localization
+### [x] T0.5 — Configure Arabic localization
 - **Goal:** set Arabic as default app language
 - **Steps:**
   - In `config/app.php`: `'locale' => 'ar'`, `'fallback_locale' => 'en'`
@@ -57,7 +59,7 @@
   - Translate validation messages into Arabic in `resources/lang/ar/validation.php`
 - **Verify:** `__('validation.required')` returns Arabic text
 
-### [ ] T0.6 — Set up storage symlink
+### [x] T0.6 — Set up storage symlink
 - **Goal:** make uploads publicly accessible
 - **Steps:**
   - `php artisan storage:link`
@@ -70,23 +72,23 @@
 
 > Build migrations bottom-up: tables with no FK dependencies first, then dependents.
 
-### [ ] T1.1 — Migration: countries
+### [x] T1.1 — Migration: countries
 - Fields per ERD §Master Data → countries
 - Add seeder with at least Saudi Arabia, UAE, Egypt, Jordan, Kuwait
 - **Verify:** `php artisan migrate` + `php artisan db:seed --class=CountrySeeder`
 
-### [ ] T1.2 — Migration: cities
+### [x] T1.2 — Migration: cities
 - Fields per ERD; FK to countries with `onDelete('cascade')`
 - Composite index `(name, country_id)`
 - Seed major cities for the seeded countries
 - **Verify:** countries.id ↔ cities.country_id relationship works in tinker
 
-### [ ] T1.3 — Migration: specialties
+### [x] T1.3 — Migration: specialties
 - Fields per ERD; soft deletes
 - Seed common specialties (Cardiology, Dermatology, Pediatrics, etc.) in Arabic + English names
 - **Verify:** unique slug constraint enforced
 
-### [ ] T1.4 — Migration: medicine_categories
+### [x] T1.4 — Migration: medicine_categories
 - Fields per ERD; self-referencing `parent_id` FK
 - Soft deletes
 - Seed top-level categories (Antibiotics, Painkillers, Vitamins, etc.)
@@ -96,25 +98,25 @@
 
 ## Phase 2 — Auth & Users Foundation
 
-### [ ] T2.1 — Migration: users (extend Laravel default)
+### [x] T2.1 — Migration: users (extend Laravel default)
 - **Important:** modify Laravel's default `users` migration to add ALL columns from ERD §users (uuid, first_name, last_name, phone, national_id, country_id, city_id, address, status, two_factor_*, last_login_*, gender, dob, etc.)
 - Add FK to countries, cities (nullable, set null on delete)
 - Add all indexes per ERD
 - Soft deletes
 - **Verify:** migration runs cleanly
 
-### [ ] T2.2 — Migration: roles, permissions, role_permissions
+### [x] T2.2 — Migration: roles, permissions, role_permissions
 - Use Spatie's published migrations as base
 - Add our extra columns: `display_name`, `description`, `module` (on permissions)
 - **Verify:** Spatie tables exist with our additions
 
-### [ ] T2.3 — Migration: user_roles (replaces Spatie's model_has_roles)
+### [x] T2.3 — Migration: user_roles (replaces Spatie's model_has_roles)
 - Per ERD: `user_id`, `role_id`, `hospital_id` (nullable), `assigned_by`, `assigned_at`
 - Unique key `(user_id, role_id, hospital_id)`
 - Update `config/permission.php` → `'model_has_roles' => 'user_roles'` and add the custom column mapping
 - **Verify:** Spatie's role assignment writes to `user_roles`
 
-### [ ] T2.4 — Seeder: roles & permissions
+### [x] T2.4 — Seeder: roles & permissions
 - Seed 5 roles: `super_admin`, `hospital_admin`, `doctor`, `pharmacist`, `patient`
 - Seed permissions grouped by module:
   - hospitals.{view,create,edit,delete,toggle-status}
@@ -128,14 +130,14 @@
 - Assign permissions to roles (super_admin gets all)
 - **Verify:** `php artisan db:seed --class=RolePermissionSeeder` succeeds
 
-### [ ] T2.5 — Model: User
+### [x] T2.5 — Model: User
 - Apply traits: `HasFactory`, `Notifiable`, `SoftDeletes`, Spatie's `HasRoles`, custom `HasHospitalScopedRoles`
 - Casts for enum fields (gender, status), datetimes
 - Relationships: `country()`, `city()`, `doctor()`, `patient()`, `pharmacist()`, `auditLogs()`
 - Accessor `getFullNameAttribute()`
 - **Verify:** factory creates user; `$user->assignRole('doctor')` works
 
-### [ ] T2.6 — Trait: HasHospitalScopedRoles
+### [x] T2.6 — Trait: HasHospitalScopedRoles
 - File: `app/Traits/HasHospitalScopedRoles.php`
 - Methods:
   - `hasRoleInHospital(string $role, int $hospitalId): bool`
@@ -144,20 +146,20 @@
   - `currentHospital()` — returns the active hospital from session/user context
 - **Verify:** unit test for each method
 
-### [ ] T2.7 — Auth scaffolding (Breeze, Arabic, RTL)
+### [x] T2.7 — Auth scaffolding (Breeze, Arabic, RTL)
 - Customize Breeze views with Materio layout
 - Translate all auth pages to Arabic
 - Login redirect logic: route user to their role-specific dashboard
 - Add `last_login_at`, `last_login_ip` update on successful login (event listener)
 - **Verify:** can log in, log out, password reset flow works in Arabic
 
-### [ ] T2.8 — Middleware: EnsureHospitalContext
+### [x] T2.8 — Middleware: EnsureHospitalContext
 - File: `app/Http/Middleware/EnsureHospitalContext.php`
 - For non-super-admin users: ensure session has `current_hospital_id` set; if user has multiple hospitals, redirect to a hospital picker
 - Register in `app/Http/Kernel.php` as `hospital.context`
 - **Verify:** routes protected by middleware redirect correctly
 
-### [ ] T2.9 — Global scope: HospitalScope
+### [x] T2.9 — Global scope: HospitalScope
 - File: `app/Scopes/HospitalScope.php`
 - Filters by `auth()->user()->current_hospital_id` unless user is super_admin
 - Trait `BelongsToHospital` applies the scope and provides `hospital()` relation
@@ -167,23 +169,23 @@
 
 ## Phase 3 — Hospitals Module
 
-### [ ] T3.1 — Migration: hospitals
+### [x] T3.1 — Migration: hospitals
 - All fields per ERD §Hospitals
 - FKs to countries, cities
 - Indexes: status, city_id, subscription_plan
 - Soft deletes
 - **Verify:** migration runs
 
-### [ ] T3.2 — Migration: hospital_specialties (pivot)
+### [x] T3.2 — Migration: hospital_specialties (pivot)
 - Per ERD; cascade deletes both ways
 - Unique `(hospital_id, specialty_id)`
 
-### [ ] T3.3 — Migration: departments
+### [x] T3.3 — Migration: departments
 - Per ERD; FK to hospitals (cascade), nullable FK to doctors (head_doctor_id, set null)
 - Unique `(hospital_id, name)`
 - Soft deletes
 
-### [ ] T3.4 — Models: Hospital, Department
+### [x] T3.4 — Models: Hospital, Department
 - `Hospital` model:
   - SoftDeletes, Auditable, generates UUID on create
   - Relationships: `country()`, `city()`, `specialties()` (belongsToMany), `departments()`, `doctors()`, `pharmacies()`, `admins()` (users with hospital_admin role for this hospital)
@@ -193,7 +195,7 @@
   - Relationships: `hospital()`, `headDoctor()`, `doctors()`
 - **Verify:** factory + tinker can create hospital with departments
 
-### [ ] T3.5 — Super Admin: Hospitals CRUD (FR-SA-002 to FR-SA-007, FR-SA-012, FR-SA-013)
+### [x] T3.5 — Super Admin: Hospitals CRUD (FR-SA-002 to FR-SA-007, FR-SA-012, FR-SA-013)
 - Routes group: `routes/super-admin.php`, prefix `/super-admin`, middleware `auth`, `role:super_admin`
 - Controller: `App\Http\Controllers\SuperAdmin\HospitalController` (resource controller)
 - FormRequests: `StoreHospitalRequest`, `UpdateHospitalRequest`
@@ -205,18 +207,18 @@
 - All actions write to `audit_logs`
 - **Verify:** manual test all CRUD flows; feature test for store + admin creation
 
-### [ ] T3.6 — Super Admin: Hospital status & archive (FR-SA-006, FR-SA-007)
+### [x] T3.6 — Super Admin: Hospital status & archive (FR-SA-006, FR-SA-007)
 - Endpoints: `PATCH /super-admin/hospitals/{hospital}/status`, `DELETE /super-admin/hospitals/{hospital}` (soft delete = archive)
 - Business rule: when status set to `inactive` or `suspended`, log out all users of that hospital and prevent login (check in `EnsureHospitalContext` middleware)
 - **Verify:** test that suspended hospital users cannot log in
 
-### [ ] T3.7 — Super Admin: Hospital Admin management (FR-SA-008 to FR-SA-011)
+### [x] T3.7 — Super Admin: Hospital Admin management (FR-SA-008 to FR-SA-011)
 - Sub-controller or nested routes under hospitals: manage users with `hospital_admin` role for a given hospital
 - CRUD on hospital admins; password reset endpoint (`POST /super-admin/hospitals/{hospital}/admins/{user}/reset-password`)
 - Disable admin = `users.status = 'inactive'`
 - **Verify:** all four actions (create/edit/disable/reset-password) work and audit-log
 
-### [ ] T3.8 — Super Admin Dashboard (FR-SA-013)
+### [x] T3.8 — Super Admin Dashboard (FR-SA-013)
 - Route: `GET /super-admin/dashboard`
 - Cards: total hospitals, active count, suspended count, total users by role
 - Recent activity from audit_logs (last 10)
@@ -226,7 +228,7 @@
 
 ## Phase 4 — Master Data Admin (Super Admin manages reference data)
 
-### [ ] T4.1 — Countries CRUD (FR-MD-001 to FR-MD-005)
+### [x] T4.1 — Countries CRUD (FR-MD-001 to FR-MD-005)
 - Controller: `App\Http\Controllers\SuperAdmin\CountryController`
 - Routes under `/super-admin/master-data/countries`
 - FormRequests with validation per SRS
@@ -234,26 +236,26 @@
 - Views with Materio data tables
 - **Verify:** all CRUD actions, soft delete works
 
-### [ ] T4.2 — Cities CRUD (FR-MD-006 to FR-MD-010)
+### [x] T4.2 — Cities CRUD (FR-MD-006 to FR-MD-010)
 - Controller: `App\Http\Controllers\SuperAdmin\CityController`
 - Country dropdown on create/edit (cascading select if needed)
 - Routes under `/super-admin/master-data/cities`
 - **Verify:** city must belong to a country, validation enforces this
 
-### [ ] T4.3 — Specialties CRUD (FR-MD-011 to FR-MD-015)
+### [x] T4.3 — Specialties CRUD (FR-MD-011 to FR-MD-015)
 - Controller: `App\Http\Controllers\SuperAdmin\SpecialtyController`
 - Auto-generate slug from name (use `Str::slug`)
 - Icon upload (optional, store in `storage/app/public/specialties/`)
 - **Verify:** slug uniqueness, icon upload works
 
-### [ ] T4.4 — Departments CRUD (FR-MD-016 to FR-MD-020)
+### [x] T4.4 — Departments CRUD (FR-MD-016 to FR-MD-020)
 - **Note:** Departments are hospital-scoped per ERD. The SRS §2 places them under master data managed by Super Admin, but the ERD column `hospital_id` makes them per-hospital.
 - **Decision:** Super Admin can view/manage departments across all hospitals; Hospital Admin manages only their hospital's departments. Implement in **both** Super Admin and Hospital Admin sections later.
 - For this task: build the Super Admin global view first (`/super-admin/master-data/departments`)
 - Filter by hospital dropdown
 - **Verify:** can create department under any hospital from super admin
 
-### [ ] T4.5 — Master Data seeders
+### [x] T4.5 — Master Data seeders
 - Verify all master data seeders work end-to-end with `php artisan migrate:fresh --seed`
 - **Verify:** clean DB → seeded DB has countries, cities, specialties, medicine_categories, roles, permissions, super admin user
 
@@ -261,26 +263,26 @@
 
 ## Phase 5 — Doctors Module
 
-### [ ] T5.1 — Migration: doctors
+### [x] T5.1 — Migration: doctors
 - All fields per ERD §Doctors
 - FKs: user_id (cascade), hospital_id (restrict), department_id (set null), primary_specialty_id (restrict)
 - Soft deletes; indexes per ERD
 - **Verify:** migration runs
 
-### [ ] T5.2 — Migration: doctor_specialties (pivot for secondary specialties)
+### [x] T5.2 — Migration: doctor_specialties (pivot for secondary specialties)
 - Per ERD; cascade both ways
 
-### [ ] T5.3 — Migration: doctor_schedules
+### [x] T5.3 — Migration: doctor_schedules
 - Per ERD; FK to doctors (cascade)
 - Index `(doctor_id, day_of_week)`
 
-### [ ] T5.4 — Model: Doctor
+### [x] T5.4 — Model: Doctor
 - SoftDeletes, BelongsToHospital, Auditable
 - Relationships: `user()`, `hospital()`, `department()`, `primarySpecialty()`, `specialties()` (belongsToMany via doctor_specialties), `schedules()`, `prescriptions()`, `medicalRecords()`, `appointments()`
 - Computed: `getNameAttribute()` (from user), `getIsAvailableAttribute()`
 - **Verify:** factory creates doctor with linked user
 
-### [ ] T5.5 — Hospital Admin: Doctors CRUD (FR-HA-002, FR-HA-002b, FR-HA-002c, FR-HA-003)
+### [x] T5.5 — Hospital Admin: Doctors CRUD (FR-HA-002, FR-HA-002b, FR-HA-002c, FR-HA-003)
 - Routes group: `routes/hospital-admin.php`, prefix `/hospital-admin`, middleware `auth`, `role:hospital_admin`, `hospital.context`
 - Controller: `App\Http\Controllers\HospitalAdmin\DoctorController`
 - Create form: name, email, phone, license_number, primary_specialty (required), department (required), secondary specialties (multi-select), consultation_fee, qualifications, bio
@@ -291,13 +293,13 @@
 - Views show specialties + department in list; filter by specialty/department/status
 - **Verify:** doctor creation atomic; doctor cannot log in if disabled
 
-### [ ] T5.6 — Doctor Schedules management
+### [x] T5.6 — Doctor Schedules management
 - Controller: `App\Http\Controllers\HospitalAdmin\DoctorScheduleController`
 - Each doctor can have one schedule entry per day_of_week
 - Form: weekly grid (Sun-Sat) with start/end time and slot duration
 - **Verify:** only one active schedule per (doctor, day_of_week)
 
-### [ ] T5.7 — Hospital Admin Dashboard
+### [x] T5.7 — Hospital Admin Dashboard
 - Route: `GET /hospital-admin/dashboard`
 - Cards: doctors count, patients count, today's appointments, pending prescriptions
 - Recent activity for this hospital
@@ -793,5 +795,33 @@ These are not standalone tasks but **rules for every task**:
 
 > Append a one-liner here after each completed task, with date and any notes for the next developer.
 
-- [date] T0.1 done — ...
-- [date] T0.2 done — ...
+- 2026-05-03 T0.1 done — Laravel 13.6 + PHP 8.3 + MySQL DB health_links + migrate:fresh OK (35 domain migrations pass)
+- 2026-05-03 T0.2 done — spatie/laravel-permission + simplesoftwareio/simple-qrcode + owen-it/laravel-auditing + laravel/breeze (blade) installed; Node 18 warning on vite build (needs Node 20+, fix in T0.4)
+- 2026-05-03 T0.3 done — config/permission.php + config/audit.php published; model_has_roles → user_roles; stub migrations deleted
+- 2026-05-03 T0.4 done — Materio assets copied to public/assets/; app.blade.php RTL (dir=rtl lang=ar Cairo font); sidebar/navbar/footer partials created
+- 2026-05-03 T0.5 done — APP_LOCALE=ar; resources/lang/ar/{app,auth,validation,pagination,passwords}.php created; __('validation.required') returns Arabic
+- 2026-05-03 T0.6 done — storage:link created; filesystems default=public
+- 2026-05-03 T1.1 done — CountrySeeder: 10 countries seeded
+- 2026-05-03 T1.2 done — CitySeeder: 16 cities seeded across 6 countries
+- 2026-05-03 T1.3 done — SpecialtySeeder: 20 specialties (Arabic names + English slugs)
+- 2026-05-03 T1.4 done — MedicineCategorySeeder: 10 parent + 4 child categories; parent/child relation works
+- 2026-05-03 T2.1 done — users migration already had all ERD fields; FK migration 000003 adds country/city FKs
+- 2026-05-03 T2.2 done — roles/permissions/role_permissions custom migrations cover Spatie needs + extra columns (display_name, module)
+- 2026-05-03 T2.3 done — user_roles has hospital_id; added model_type+model_id via migration 000032 for Spatie compat; model_has_permissions table added; config/permission.php maps role_has_permissions→role_permissions
+- 2026-05-03 T2.4 done — 5 roles + 24 permissions seeded; super_admin gets all 24; role-specific permission sets assigned
+- 2026-05-03 T2.5 done — User model: HasRoles + HasHospitalScopedRoles + all relationships + getFullNameAttribute
+- 2026-05-03 T2.6 done — app/Traits/HasHospitalScopedRoles.php: hasRoleInHospital, hasPermissionInHospital, assignRoleInHospital, currentHospital, hospitalIds
+- 2026-05-03 T2.7 done — Breeze auth views rewritten in Arabic/Materio RTL; login redirects by role; last_login_at+ip updated on login
+- 2026-05-03 T2.8 done — EnsureHospitalContext middleware: auto-set session, hospital-picker redirect, suspended hospital block; registered as hospital.context
+- 2026-05-03 T2.9 done — HospitalScope (filters by session hospital_id, bypasses super_admin) + BelongsToHospital trait (applies scope + hospital() relation)
+- 2026-05-03 T3.1–T3.3 done — migrations already existed from Phase 0 scaffold; all ran OK (31 tables live)
+- 2026-05-03 T3.4 done — Hospital: Auditable (OwenIt), admins() via hasManyThrough, scopeActive(), scopeBySubscription(); Department: BelongsToHospital trait added
+- 2026-05-03 T3.5 done — HospitalController (resource), StoreHospitalRequest, UpdateHospitalRequest, HospitalOnboardingService (atomic create+admin, update, archive), routes/super-admin.php, 4 Blade views (index/create/edit/show)
+- 2026-05-03 T5.1–T5.3 done — migrations existed from Phase 0 scaffold; doctors/doctor_specialties/doctor_schedules all ran OK
+- 2026-05-03 T5.4 done — Doctor model: BelongsToHospital + Auditable added; getNameAttribute() + getIsAvailableAttribute() (checks column AND status=active)
+- 2026-05-03 T5.5 done — DoctorController, DoctorOnboardingService (atomic User+Doctor+role in transaction), StoreDoctorRequest, UpdateDoctorRequest, routes/hospital-admin.php, 4 Blade views (index/create/edit/show); sidebar menu hospital-admin partial created
+- 2026-05-03 T5.6 done — DoctorScheduleController: updateOrCreate per day, disable by leaving empty; weekly grid view (schedules.blade.php)
+- 2026-05-03 T5.7 done — DashboardController: 4 stats cards scoped to current hospital; hospital-admin/dashboard.blade.php
+- 2026-05-03 T3.6 done — PATCH hospitals/{hospital}/status in HospitalController@updateStatus; invalidates sessions of hospital users on inactive/suspended; soft-delete via destroy()
+- 2026-05-03 T3.7 done — HospitalAdminController: index/create/store/edit/update/disable/resetPassword; nested routes under hospitals/{hospital}/admins; all actions audit-log
+- 2026-05-03 T3.8 done — DashboardController: 4 stat cards (total/active/suspended/inactive hospitals + total users) + recent audit_logs (last 10); view: super-admin/dashboard.blade.php

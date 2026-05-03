@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\UserGender;
 use App\Enums\UserStatus;
+use App\Traits\HasHospitalScopedRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,10 +13,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, HasHospitalScopedRoles, HasRoles, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'uuid', 'first_name', 'last_name', 'email', 'phone',

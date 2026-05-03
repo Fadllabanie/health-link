@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use App\Enums\DoctorStatus;
+use App\Traits\BelongsToHospital;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Doctor extends Model
+class Doctor extends Model implements AuditableContract
 {
-    use HasFactory, SoftDeletes;
+    use BelongsToHospital, HasFactory, \OwenIt\Auditing\Auditable, SoftDeletes;
 
     protected $fillable = [
         'user_id', 'hospital_id', 'department_id', 'primary_specialty_id',
@@ -26,21 +28,26 @@ class Doctor extends Model
         return [
             'license_expires_at' => 'date',
             'joined_at' => 'date',
-            'is_available' => 'boolean',
             'rating' => 'decimal:2',
             'consultation_fee' => 'decimal:2',
             'status' => DoctorStatus::class,
         ];
     }
 
+    public function getNameAttribute(): string
+    {
+        return $this->user?->full_name ?? '';
+    }
+
+    public function getIsAvailableAttribute(): bool
+    {
+        return $this->attributes['is_available']
+            && $this->status === DoctorStatus::Active;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function hospital(): BelongsTo
-    {
-        return $this->belongsTo(Hospital::class);
     }
 
     public function department(): BelongsTo

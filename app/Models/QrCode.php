@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Crypt;
 
 class QrCode extends Model
 {
@@ -22,11 +23,35 @@ class QrCode extends Model
             'last_scanned_at' => 'datetime',
             'expires_at' => 'datetime',
             'is_active' => 'boolean',
+            'scan_count' => 'integer',
         ];
     }
 
     public function qrable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function regenerate(): static
+    {
+        $this->update([
+            'code' => Crypt::encryptString(uniqid((string) $this->qrable_id, true)),
+            'is_active' => true,
+            'scan_count' => 0,
+            'last_scanned_at' => null,
+        ]);
+
+        return $this;
+    }
+
+    public function incrementScan(): void
+    {
+        $this->increment('scan_count');
+        $this->update(['last_scanned_at' => now()]);
+    }
+
+    public function isExpired(): bool
+    {
+        return $this->expires_at !== null && $this->expires_at->isPast();
     }
 }

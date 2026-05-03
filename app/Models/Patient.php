@@ -10,10 +10,32 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Patient extends Model
+class Patient extends Model implements AuditableContract
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, \OwenIt\Auditing\Auditable, SoftDeletes;
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function (self $patient): void {
+            if (empty($patient->medical_record_number)) {
+                $patient->medical_record_number = static::generateMrn($patient->hospital_id);
+            }
+        });
+    }
+
+    private static function generateMrn(?int $hospitalId): string
+    {
+        $prefix = $hospitalId ? "MRN-{$hospitalId}" : 'MRN';
+        $sequence = static::withTrashed()
+            ->when($hospitalId, fn ($q) => $q->where('hospital_id', $hospitalId))
+            ->count() + 1;
+
+        return $prefix.'-'.str_pad((string) $sequence, 6, '0', STR_PAD_LEFT);
+    }
 
     protected $fillable = [
         'user_id', 'hospital_id', 'qr_code_id', 'city_id',
