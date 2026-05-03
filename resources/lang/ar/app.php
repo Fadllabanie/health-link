@@ -52,6 +52,7 @@ return [
     'hold_ctrl_to_select_multiple' => 'اضغط Ctrl للاختيار من متعدد',
     'email_cannot_be_changed' => 'لا يمكن تغيير البريد الإلكتروني',
     'leave_empty_to_disable_day' => 'اترك الحقول فارغة لتعطيل ذلك اليوم',
+    'all' => 'الكل',
     'users' => 'المستخدمون',
     'user' => 'المستخدم',
     'master_data' => 'البيانات الأساسية',

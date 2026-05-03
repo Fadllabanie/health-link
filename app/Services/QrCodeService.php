@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Patient;
+use App\Models\Prescription;
 use App\Models\QrCode;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +28,20 @@ class QrCodeService
         $patient->update(['qr_code_id' => $qr->id]);
 
         return $qr;
+    }
+
+    public function generateForPrescription(Prescription $prescription): QrCode
+    {
+        $token = Crypt::encryptString($prescription->id.'|rx|'.uniqid('', true));
+        $imagePath = $this->saveImage($token);
+
+        return QrCode::create([
+            'code' => $token,
+            'qrable_type' => Prescription::class,
+            'qrable_id' => $prescription->id,
+            'image_path' => $imagePath,
+            'is_active' => true,
+        ]);
     }
 
     public function regenerate(QrCode $qr): QrCode
@@ -70,10 +85,10 @@ class QrCodeService
     private function saveImage(string $token): string
     {
         $url = url('/qr/'.$token);
-        $png = QrCodeGenerator::format('png')->size(300)->generate($url);
+        $svg = QrCodeGenerator::format('svg')->size(300)->generate($url);
 
-        $path = 'qr-codes/'.sha1($token).'.png';
-        Storage::disk('public')->put($path, $png);
+        $path = 'qr-codes/'.sha1($token).'.svg';
+        Storage::disk('public')->put($path, $svg);
 
         return $path;
     }

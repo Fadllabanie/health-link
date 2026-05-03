@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PrescriptionStatus;
+use App\Traits\BelongsToHospital;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,10 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Prescription extends Model
+class Prescription extends Model implements AuditableContract
 {
-    use HasFactory, SoftDeletes;
+    use BelongsToHospital, HasFactory, \OwenIt\Auditing\Auditable, SoftDeletes;
 
     protected $fillable = [
         'uuid', 'prescription_number', 'medical_record_id',
@@ -36,7 +38,16 @@ class Prescription extends Model
     protected static function boot(): void
     {
         parent::boot();
-        static::creating(fn (Prescription $prescription) => $prescription->uuid ??= Str::uuid()->toString());
+        static::creating(function (Prescription $prescription): void {
+            $prescription->uuid ??= Str::uuid()->toString();
+            if (empty($prescription->prescription_number)) {
+                $prefix = 'RX-'.($prescription->hospital_id ?? '0');
+                $seq = static::withTrashed()
+                    ->when($prescription->hospital_id, fn ($q) => $q->where('hospital_id', $prescription->hospital_id))
+                    ->count() + 1;
+                $prescription->prescription_number = $prefix.'-'.str_pad((string) $seq, 6, '0', STR_PAD_LEFT);
+            }
+        });
     }
 
     public function medicalRecord(): BelongsTo

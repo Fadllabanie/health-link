@@ -3,7 +3,10 @@
 use App\Http\Controllers\HospitalAdmin\DashboardController;
 use App\Http\Controllers\HospitalAdmin\DoctorController;
 use App\Http\Controllers\HospitalAdmin\DoctorScheduleController;
+use App\Http\Controllers\HospitalAdmin\MedicineController;
 use App\Http\Controllers\HospitalAdmin\PatientController;
+use App\Http\Controllers\HospitalAdmin\PharmacistController;
+use App\Http\Controllers\HospitalAdmin\PharmacyController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'role:hospital_admin', 'hospital.context'])
@@ -26,4 +29,16 @@ Route::middleware(['auth', 'role:hospital_admin', 'hospital.context'])
         // Patients (read-only list + create by admin/doctor)
         Route::resource('patients', PatientController::class)
             ->only(['index', 'create', 'store', 'show']);
+
+        // Medicine catalog (global, no hospital_id scoping)
+        Route::resource('medicines', MedicineController::class);
+        Route::patch('medicines/{medicine}/toggle-status', [MedicineController::class, 'toggleStatus'])
+            ->name('medicines.toggle-status');
+
+        // Pharmacies CRUD
+        Route::resource('pharmacies', PharmacyController::class);
+
+        // Pharmacists (nested under pharmacy)
+        Route::resource('pharmacies.pharmacists', PharmacistController::class)
+            ->only(['create', 'store', 'destroy']);
     });

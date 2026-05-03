@@ -22,3 +22,10 @@
         <div>{{ __('patients.patients') }}</div>
     </a>
 </li>
+
+<li class="menu-item {{ request()->routeIs('hospital-admin.pharmacies*') ? 'active open' : '' }}">
+    <a href="{{ route('hospital-admin.pharmacies.index') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-plus-medical"></i>
+        <div>{{ __('pharmacies.pharmacies') }}</div>
+    </a>
+</li>

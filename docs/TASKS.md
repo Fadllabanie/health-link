@@ -309,36 +309,36 @@
 
 ## Phase 6 — Patients Module
 
-### [ ] T6.1 — Migration: patients
+### [x] T6.1 — Migration: patients
 - All fields per ERD §Patients
 - FKs: user_id (cascade), hospital_id (set null), qr_code_id (set null), city_id
 - Soft deletes
 - Auto-generate MRN (medical_record_number) on create — format: `MRN-{hospital_id}-{padded_sequence}` or UUID-based
 - **Verify:** migration runs; MRN unique
 
-### [ ] T6.2 — Migration: patient_hospitals (pivot)
+### [x] T6.2 — Migration: patient_hospitals (pivot)
 - Per ERD; tracks which hospitals a patient has registered with
 - Cascade both ways; unique `(patient_id, hospital_id)`
 
-### [ ] T6.3 — Migration: qr_codes
+### [x] T6.3 — Migration: qr_codes
 - Polymorphic per ERD: `qrable_type`, `qrable_id`
 - `code` is the encrypted token used in QR image
 - Index on `code`, `(qrable_type, qrable_id)`
 - Soft deletes
 - **Verify:** migration runs
 
-### [ ] T6.4 — Model: Patient
+### [x] T6.4 — Model: Patient
 - SoftDeletes, Auditable
 - Relationships: `user()`, `hospital()` (primary), `hospitals()` (belongsToMany via patient_hospitals), `city()`, `qrCode()` (morphOne or belongsTo), `medicalRecords()`, `prescriptions()`, `appointments()`
 - Boot method auto-generates MRN
 - **Verify:** factory + MRN auto-generation
 
-### [ ] T6.5 — Model: QrCode
+### [x] T6.5 — Model: QrCode
 - Polymorphic `qrable()` morphTo
 - Methods: `regenerate()`, `incrementScan()`, `isExpired()`
 - **Verify:** can attach QR to Patient and Prescription
 
-### [ ] T6.6 — Service: QrCodeService
+### [x] T6.6 — Service: QrCodeService
 - File: `app/Services/QrCodeService.php`
 - Methods:
   - `generateForPatient(Patient $patient): QrCode` — creates encrypted code, generates PNG via simple-qrcode, stores in `storage/app/public/qr-codes/`, links via polymorphic relation
@@ -347,20 +347,20 @@
 - The QR points to a public URL like `/qr/{code}` that resolves to the patient's latest prescription view
 - **Verify:** unit test for generate + verify roundtrip
 
-### [ ] T6.7 — Patient registration flow
+### [x] T6.7 — Patient registration flow
 - Patient self-registration is **not** in v1 SRS — patients are created by Hospital Admin or Doctor
 - Hospital Admin route: `GET/POST /hospital-admin/patients/create`
 - Form: personal data + medical fields + creates User with `patient` role + auto-generates MRN + auto-generates QR code
 - All in one DB transaction via `PatientRegistrationService`
 - **Verify:** new patient has user, MRN, QR code
 
-### [ ] T6.8 — Hospital Admin: Patients list (FR-HA-004a, FR-HA-004b)
+### [x] T6.8 — Hospital Admin: Patients list (FR-HA-004a, FR-HA-004b)
 - Read-only list per business rule #2 of §3 ("Hospital Admin can only view patients, not edit")
 - Pagination, search by name/MRN/phone
 - Detail page shows full medical record, prescriptions, appointments
 - **Verify:** edit/delete buttons hidden for hospital_admin role
 
-### [ ] T6.9 — Patient self-service portal (Phase 11) — placeholder
+### [x] T6.9 — Patient self-service portal (Phase 11) — placeholder
 - Skip for now; this phase only covers patient management by admin/doctor
 
 ---
@@ -412,20 +412,20 @@
 
 ## Phase 8 — Medicines
 
-### [ ] T8.1 — Migration: medicines
+### [x] T8.1 — Migration: medicines
 - Per ERD §Medicines
 - FK to medicine_categories (set null)
 - Soft deletes; indexes on name, generic_name, barcode, category_id
 - **Verify:** migration runs
 
-### [ ] T8.2 — Model: Medicine
+### [x] T8.2 — Model: Medicine
 - SoftDeletes, Auditable
 - Relations: `category()`, `prescriptionItems()`, `inventories()`
 - Casts for boolean fields
 - Image accessor for full URL
 - **Verify:** factory works
 
-### [ ] T8.3 — Hospital Admin & Pharmacy Admin: Medicine catalog (FR-HA-005a/b, FR-PH-002 to FR-PH-005)
+### [x] T8.3 — Hospital Admin & Pharmacy Admin: Medicine catalog (FR-HA-005a/b, FR-PH-002 to FR-PH-005)
 - **Decision:** Medicines are global (no `hospital_id` per ERD). Hospital Admin and Pharmacy Admin can both manage the medicine catalog. Super Admin too.
 - Controllers (one per role context, sharing logic via service):
   - `App\Http\Controllers\HospitalAdmin\MedicineController`
@@ -435,7 +435,7 @@
 - Search by name, generic name, barcode
 - **Verify:** all CRUD operations
 
-### [ ] T8.4 — Medicine seeder
+### [x] T8.4 — Medicine seeder
 - Seed ~20 common medicines across different categories
 - **Verify:** seeder runs cleanly
 
@@ -443,28 +443,28 @@
 
 ## Phase 9 — Pharmacies & Inventory
 
-### [ ] T9.1 — Migration: pharmacies
+### [x] T9.1 — Migration: pharmacies
 - Per ERD; FK to hospitals (cascade, NULLABLE for independent pharmacies), country, city
 - Soft deletes; indexes per ERD
 - **Verify:** migration runs
 
-### [ ] T9.2 — Migration: pharmacists
+### [x] T9.2 — Migration: pharmacists
 - Per ERD; FK to users (cascade), pharmacies (cascade)
 - Soft deletes
 - **Verify:** migration runs
 
-### [ ] T9.3 — Migration: pharmacy_inventories
+### [x] T9.3 — Migration: pharmacy_inventories
 - Per ERD; FKs to pharmacies (cascade), medicines (restrict)
 - Unique `(pharmacy_id, medicine_id, batch_number)`
 - Indexes per ERD
 - **Verify:** migration runs
 
-### [ ] T9.4 — Migration: stock_movements
+### [x] T9.4 — Migration: stock_movements
 - Per ERD; FK to pharmacy_inventories (cascade), users (performed_by)
 - Polymorphic `(reference_type, reference_id)` for Prescription/Purchase reference
 - **Verify:** migration runs
 
-### [ ] T9.5 — Models: Pharmacy, Pharmacist, PharmacyInventory, StockMovement
+### [x] T9.5 — Models: Pharmacy, Pharmacist, PharmacyInventory, StockMovement
 - All apply SoftDeletes + Auditable where ERD has `deleted_at`
 - `Pharmacy`: relations to hospital, country, city, pharmacists, inventories
 - `Pharmacist`: relations to user, pharmacy
@@ -472,12 +472,12 @@
 - `StockMovement`: morphTo `reference()`
 - **Verify:** factories + relationships
 
-### [ ] T9.6 — Hospital Admin: Pharmacy management
+### [x] T9.6 — Hospital Admin: Pharmacy management
 - Routes: `/hospital-admin/pharmacies` — CRUD for in-hospital pharmacies
 - Pharmacy admin (pharmacist) creation: form creates User + Pharmacist + assigns role atomically via service
 - **Verify:** can add pharmacy with admin
 
-### [ ] T9.7 — Pharmacy Admin: Inventory CRUD (FR-PH-006a, FR-PH-006b)
+### [x] T9.7 — Pharmacy Admin: Inventory CRUD (FR-PH-006a, FR-PH-006b)
 - Routes group: `routes/pharmacy.php`, prefix `/pharmacy`, middleware `auth`, `role:pharmacist`
 - Controller: `App\Http\Controllers\Pharmacy\InventoryController`
 - Create: medicine, batch_number, quantity, unit_cost, selling_price, manufacturing_date, expiry_date, supplier, location, reorder_level
@@ -485,13 +485,13 @@
 - Edit: only `quantity`, `selling_price`, `reorder_level`, `location` editable; quantity changes write stock_movement with `type=adjustment`
 - **Verify:** stock_movements correctly tracks every change
 
-### [ ] T9.8 — Pharmacy Admin: Expiry tracking (FR-PH-007)
+### [x] T9.8 — Pharmacy Admin: Expiry tracking (FR-PH-007)
 - Route: `GET /pharmacy/inventory/expiring`
 - Show items expiring within 30 days, 60 days, 90 days, already expired
 - Auto-update inventory `status` to `expired` when expiry_date < today (run as scheduled command daily)
 - **Verify:** expired items shown with status
 
-### [ ] T9.9 — Pharmacy Admin: Reports (FR-PH-013)
+### [x] T9.9 — Pharmacy Admin: Reports (FR-PH-013)
 - Stock report (current quantities by medicine)
 - Movement report (all movements in date range)
 - Low stock report (quantity <= reorder_level)
@@ -503,23 +503,23 @@
 
 > The **most critical** module — encodes safety-critical business rules.
 
-### [ ] T10.1 — Migration: prescriptions
+### [x] T10.1 — Migration: prescriptions
 - Per ERD §Prescriptions
 - FKs per ERD with proper onDelete behaviors (mostly RESTRICT)
 - Soft deletes; all indexes from ERD
 - **Verify:** migration runs
 
-### [ ] T10.2 — Migration: prescription_items
+### [x] T10.2 — Migration: prescription_items
 - Per ERD; FKs to prescriptions (cascade), medicines (restrict)
 - **Verify:** migration runs
 
-### [ ] T10.3 — Models: Prescription, PrescriptionItem
+### [x] T10.3 — Models: Prescription, PrescriptionItem
 - `Prescription`: SoftDeletes, BelongsToHospital, Auditable; UUID + prescription_number auto-generated; relations to patient, doctor, hospital, pharmacy, medicalRecord, items, dispensedBy
 - `PrescriptionItem`: relations to prescription, medicine; computed `total_price = quantity * unit_price`
 - Status enum cast
 - **Verify:** factory creates prescription with items
 
-### [ ] T10.4 — Service: PrescriptionService
+### [x] T10.4 — Service: PrescriptionService
 - File: `app/Services/PrescriptionService.php`
 - Methods:
   - `create(Doctor $doctor, Patient $patient, array $data, array $items): Prescription` — validates, creates prescription + items in transaction, generates prescription_number, logs audit
@@ -529,32 +529,32 @@
 - Each method enforces business rules from §10 of PROJECT_OVERVIEW
 - **Verify:** unit tests for each method, including failure paths (insufficient stock, already dispensed, etc.)
 
-### [ ] T10.5 — Doctor: Create prescription (FR-DR-008)
+### [x] T10.5 — Doctor: Create prescription (FR-DR-008)
 - Route: `GET/POST /doctor/patients/{patient}/prescriptions/create`
 - Form: optional medical_record_id, valid_until, notes, diagnosis_summary, dynamic items table
 - Each item: medicine (searchable dropdown), dosage, frequency, duration_days, quantity, route, instructions
 - Min 1 item required (validation)
 - **Verify:** form submits, prescription created with items, prescription_number generated
 
-### [ ] T10.6 — Doctor: Edit/cancel prescription (FR-DR-011, FR-DR-012)
+### [x] T10.6 — Doctor: Edit/cancel prescription (FR-DR-011, FR-DR-012)
 - Edit only when status=`pending` (not yet dispensed)
 - Cancel any time before dispense, requires reason
 - Audit logged
 - **Verify:** dispensed prescription cannot be edited; cancellation captures reason
 
-### [ ] T10.7 — Doctor: View prescriptions (FR-DR-009, FR-DR-010, FR-DR-013)
+### [x] T10.7 — Doctor: View prescriptions (FR-DR-009, FR-DR-010, FR-DR-013)
 - Index: list of own prescriptions, filter by patient/status/date
 - Show: full details + status timeline
 - **Verify:** doctor sees only own + hospital-scoped prescriptions
 
-### [ ] T10.8 — Pharmacy Admin: View pending prescriptions (FR-PH-008, FR-PH-009)
+### [x] T10.8 — Pharmacy Admin: View pending prescriptions (FR-PH-008, FR-PH-009)
 - Route: `GET /pharmacy/prescriptions`
 - List prescriptions with status=`pending` or `partially_dispensed` for this hospital
 - Filter by status, date, patient name, prescription_number
 - Show details: patient info, doctor info, items with required quantities, current stock per medicine in this pharmacy
 - **Verify:** list scoped correctly to pharmacy's hospital
 
-### [ ] T10.9 — Pharmacy Admin: Dispense prescription (FR-PH-010)
+### [x] T10.9 — Pharmacy Admin: Dispense prescription (FR-PH-010)
 - Route: `POST /pharmacy/prescriptions/{prescription}/dispense`
 - Form: each item has dispensed quantity field (default = ordered quantity)
 - Service call: `PrescriptionService::dispense()`
@@ -563,13 +563,13 @@
 - Update QR code if prescription is the patient's latest
 - **Verify:** stock decrements correctly; partial dispense allowed; cannot dispense without stock
 
-### [ ] T10.10 — Pharmacy Admin: Reject prescription (FR-PH-011)
+### [x] T10.10 — Pharmacy Admin: Reject prescription (FR-PH-011)
 - Reason required
 - Status set to `cancelled` (or add `rejected` to enum if needed) with note
 - Notify the prescribing doctor (Phase 12)
 - **Verify:** rejection captured
 
-### [ ] T10.11 — Prescription QR code
+### [x] T10.11 — Prescription QR code
 - After prescription is created, generate a QR code linking to `/qr/prescription/{code}` (resolves to a print-friendly view)
 - Used by patients/pharmacies to scan + verify
 - **Verify:** scanning QR opens prescription details
@@ -821,6 +821,7 @@ These are not standalone tasks but **rules for every task**:
 - 2026-05-03 T5.4 done — Doctor model: BelongsToHospital + Auditable added; getNameAttribute() + getIsAvailableAttribute() (checks column AND status=active)
 - 2026-05-03 T5.5 done — DoctorController, DoctorOnboardingService (atomic User+Doctor+role in transaction), StoreDoctorRequest, UpdateDoctorRequest, routes/hospital-admin.php, 4 Blade views (index/create/edit/show); sidebar menu hospital-admin partial created
 - 2026-05-03 T5.6 done — DoctorScheduleController: updateOrCreate per day, disable by leaving empty; weekly grid view (schedules.blade.php)
+- 2026-05-03 T6.1–T6.9 done — migrations (patients, patient_hospitals, qr_codes) + Patient/QrCode models + QrCodeService (SVG, no imagick) + PatientRegistrationService + PatientController + StorePatientRequest + 3 Blade views (index/create/show) + /qr/{code} route; 4 passing unit tests for QrCodeService
 - 2026-05-03 T5.7 done — DashboardController: 4 stats cards scoped to current hospital; hospital-admin/dashboard.blade.php
 - 2026-05-03 T3.6 done — PATCH hospitals/{hospital}/status in HospitalController@updateStatus; invalidates sessions of hospital users on inactive/suspended; soft-delete via destroy()
 - 2026-05-03 T3.7 done — HospitalAdminController: index/create/store/edit/update/disable/resetPassword; nested routes under hospitals/{hospital}/admins; all actions audit-log

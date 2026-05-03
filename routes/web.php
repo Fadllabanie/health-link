@@ -24,3 +24,5 @@ Route::get('/qr/{code}', QrResolverController::class)->name('qr.resolve');
 require __DIR__.'/auth.php';
 require __DIR__.'/super-admin.php';
 require __DIR__.'/hospital-admin.php';
+require __DIR__.'/doctor.php';
+require __DIR__.'/pharmacy.php';

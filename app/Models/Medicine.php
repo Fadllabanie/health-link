@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Medicine extends Model
+class Medicine extends Model implements AuditableContract
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, \OwenIt\Auditing\Auditable, SoftDeletes;
 
     protected $fillable = [
         'name', 'generic_name', 'brand_name', 'barcode', 'category_id',
@@ -43,5 +44,15 @@ class Medicine extends Model
     public function inventories(): HasMany
     {
         return $this->hasMany(PharmacyInventory::class);
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image ? asset('storage/'.$this->image) : null;
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 }
