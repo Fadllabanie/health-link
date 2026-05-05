@@ -58,4 +58,7 @@ return [
     'master_data' => 'البيانات الأساسية',
     'recent_activity' => 'آخر النشاطات',
     'date' => 'التاريخ',
+    'full_name' => 'الاسم الكامل',
+    'download' => 'تنزيل',
+    'details' => 'التفاصيل',
 ];

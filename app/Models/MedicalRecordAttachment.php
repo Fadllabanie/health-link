@@ -15,6 +15,11 @@ class MedicalRecordAttachment extends Model
         'file_type', 'file_size', 'description', 'uploaded_by',
     ];
 
+    public function getFileUrlAttribute(): string
+    {
+        return asset('storage/'.$this->file_path);
+    }
+
     public function medicalRecord(): BelongsTo
     {
         return $this->belongsTo(MedicalRecord::class);

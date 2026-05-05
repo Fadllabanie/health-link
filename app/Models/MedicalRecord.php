@@ -4,20 +4,22 @@ namespace App\Models;
 
 use App\Enums\RecordStatus;
 use App\Enums\VisitType;
+use App\Traits\BelongsToHospital;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class MedicalRecord extends Model
+class MedicalRecord extends Model implements AuditableContract
 {
-    use HasFactory, SoftDeletes;
+    use BelongsToHospital, HasFactory, \OwenIt\Auditing\Auditable, SoftDeletes;
 
     protected $fillable = [
         'uuid', 'patient_id', 'doctor_id', 'hospital_id',
-        'visit_date', 'visit_type', 'notes', 'status',
+        'visit_date', 'visit_type', 'notes', 'diagnosis', 'status',
     ];
 
     protected function casts(): array
@@ -33,6 +35,15 @@ class MedicalRecord extends Model
     {
         parent::boot();
         static::creating(fn (MedicalRecord $record) => $record->uuid ??= Str::uuid()->toString());
+    }
+
+    public function canBeEdited(): bool
+    {
+        if ($this->status === RecordStatus::Draft) {
+            return true;
+        }
+
+        return $this->updated_at->diffInHours(now()) <= 24;
     }
 
     public function patient(): BelongsTo

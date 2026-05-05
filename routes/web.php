@@ -18,11 +18,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Public QR code resolver
-Route::get('/qr/{code}', QrResolverController::class)->name('qr.resolve');
+// Public QR code resolver — rate limited
+Route::get('/qr/{code}', QrResolverController::class)
+    ->name('qr.resolve')
+    ->middleware('throttle:30,1');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/super-admin.php';
 require __DIR__.'/hospital-admin.php';
 require __DIR__.'/doctor.php';
 require __DIR__.'/pharmacy.php';
+require __DIR__.'/patient.php';

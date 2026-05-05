@@ -1,0 +1,108 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - link "الاسم" [ref=e6] [cursor=pointer]:
+        - /url: https://health-links.test/dashboard
+        - img [ref=e9]
+        - generic [ref=e13]: الاسم
+      - link [ref=e14] [cursor=pointer]:
+        - /url: javascript:void(0);
+    - list [ref=e16]:
+      - listitem [ref=e17]:
+        - link " لوحة التحكم" [ref=e18] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/dashboard
+          - generic [ref=e19]: 
+          - generic [ref=e20]: لوحة التحكم
+      - listitem [ref=e21]:
+        - generic [ref=e22]: الإدارة
+      - listitem [ref=e23]:
+        - link " الأطباء" [ref=e24] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/doctors
+          - generic [ref=e25]: 
+          - generic [ref=e26]: الأطباء
+      - listitem [ref=e27]:
+        - link " المرضى" [ref=e28] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/patients
+          - generic [ref=e29]: 
+          - generic [ref=e30]: المرضى
+      - listitem [ref=e31]:
+        - link " الصيدليات" [ref=e32] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/pharmacies
+          - generic [ref=e33]: 
+          - generic [ref=e34]: الصيدليات
+  - generic [ref=e35]:
+    - navigation [ref=e36]:
+      - generic [ref=e37]:
+        - generic:
+          - navigation "breadcrumb":
+            - list
+        - list [ref=e38]:
+          - listitem [ref=e39]:
+            - link [ref=e40] [cursor=pointer]:
+              - /url: javascript:void(0);
+          - listitem [ref=e42]:
+            - link [ref=e43] [cursor=pointer]:
+              - /url: javascript:void(0);
+    - generic [ref=e45]:
+      - generic [ref=e47]:
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - generic [ref=e51]:
+              - link "" [ref=e52] [cursor=pointer]:
+                - /url: https://health-links.test/hospital-admin/medicines
+                - generic [ref=e53]: 
+              - heading "أموكسيسيلين" [level=5] [ref=e54]
+            - generic [ref=e55]:
+              - link " تعديل" [ref=e56] [cursor=pointer]:
+                - /url: https://health-links.test/hospital-admin/medicines/1/edit
+                - generic [ref=e57]: 
+                - text: تعديل
+              - button " حذف" [ref=e59] [cursor=pointer]:
+                - generic [ref=e60]: 
+                - text: حذف
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: اسم الدواء
+              - generic [ref=e65]: أموكسيسيلين
+            - generic [ref=e66]:
+              - generic [ref=e67]: الاسم العلمي
+              - generic [ref=e68]: Amoxicillin
+            - generic [ref=e69]:
+              - generic [ref=e70]: الاسم التجاري
+              - generic [ref=e71]: Amoxil
+            - generic [ref=e72]:
+              - generic [ref=e73]: الباركود
+              - generic [ref=e74]: —
+            - generic [ref=e75]:
+              - generic [ref=e76]: التصنيف
+              - generic [ref=e77]: المضادات الحيوية
+            - generic [ref=e78]:
+              - generic [ref=e79]: الشركة المصنّعة
+              - generic [ref=e80]: GlaxoSmithKline
+            - generic [ref=e81]:
+              - generic [ref=e82]: الشكل الصيدلاني
+              - generic [ref=e83]: كبسولات
+            - generic [ref=e84]:
+              - generic [ref=e85]: التركيز / الجرعة
+              - generic [ref=e86]: 500mg
+            - generic [ref=e87]:
+              - generic [ref=e88]: الوحدة
+              - generic [ref=e89]: mg
+        - generic [ref=e90]:
+          - generic [ref=e93]:
+            - generic [ref=e94]: 
+            - paragraph [ref=e95]: لا توجد صورة
+          - generic [ref=e96]:
+            - generic [ref=e97]:
+              - generic [ref=e98]:
+                - generic [ref=e99]: يستلزم وصفة طبية
+                - generic [ref=e100]: نعم
+              - generic [ref=e101]:
+                - generic [ref=e102]: دواء مراقَب
+                - generic [ref=e103]: لا
+              - generic [ref=e104]:
+                - generic [ref=e105]: الحالة
+                - generic [ref=e106]: نشط
+            - button "تم تعطيل الدواء." [ref=e109] [cursor=pointer]
+      - contentinfo [ref=e110]:
+        - generic [ref=e113]: © 2026 — الاسم

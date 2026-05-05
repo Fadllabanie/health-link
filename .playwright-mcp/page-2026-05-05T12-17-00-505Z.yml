@@ -1,0 +1,471 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - link "الاسم" [ref=e6] [cursor=pointer]:
+        - /url: https://health-links.test/dashboard
+        - img [ref=e9]
+        - generic [ref=e13]: الاسم
+      - link [ref=e14] [cursor=pointer]:
+        - /url: javascript:void(0);
+    - list [ref=e16]:
+      - listitem [ref=e17]:
+        - link " لوحة التحكم" [ref=e18] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/dashboard
+          - generic [ref=e19]: 
+          - generic [ref=e20]: لوحة التحكم
+      - listitem [ref=e21]:
+        - generic [ref=e22]: الإدارة
+      - listitem [ref=e23]:
+        - link " الأطباء" [ref=e24] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/doctors
+          - generic [ref=e25]: 
+          - generic [ref=e26]: الأطباء
+      - listitem [ref=e27]:
+        - link " المرضى" [ref=e28] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/patients
+          - generic [ref=e29]: 
+          - generic [ref=e30]: المرضى
+      - listitem [ref=e31]:
+        - link " الصيدليات" [ref=e32] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/pharmacies
+          - generic [ref=e33]: 
+          - generic [ref=e34]: الصيدليات
+  - generic [ref=e35]:
+    - navigation [ref=e36]:
+      - generic [ref=e37]:
+        - generic:
+          - navigation "breadcrumb":
+            - list
+        - list [ref=e38]:
+          - listitem [ref=e39]:
+            - link [ref=e40] [cursor=pointer]:
+              - /url: javascript:void(0);
+          - listitem [ref=e42]:
+            - link [ref=e43] [cursor=pointer]:
+              - /url: javascript:void(0);
+    - generic [ref=e45]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - heading "كتالوج الأدوية" [level=5] [ref=e49]
+          - link " إضافة دواء" [ref=e50] [cursor=pointer]:
+            - /url: https://health-links.test/hospital-admin/medicines/create
+            - generic [ref=e51]: 
+            - text: إضافة دواء
+        - generic [ref=e53]:
+          - textbox "بحث" [ref=e55]
+          - combobox [ref=e57]:
+            - option "تصفية بالتصنيف" [selected]
+            - option "أدوية الجهاز التنفسي"
+            - option "أدوية الجهاز الهضمي"
+            - option "أدوية الحساسية"
+            - option "أدوية السكري"
+            - option "أدوية القلب والضغط"
+            - option "الأدوية النفسية والعصبية"
+            - option "الفيتامينات والمكملات"
+            - option "المسكنات المخدرة"
+            - option "المضادات الحيوية"
+            - option "الهرمونات"
+            - option "بيتالاكتام"
+            - option "ماكرولايد"
+            - option "مسكنات الألم"
+            - option "مسكنات الألم غير المخدرة"
+          - combobox [ref=e59]:
+            - option "تصفية بالشكل" [selected]
+            - option "أقراص"
+            - option "كبسولات"
+            - option "شراب"
+            - option "حقن"
+            - option "كريم"
+            - option "قطرات"
+            - option "بخاخ"
+            - option "أخرى"
+          - button "تصفية" [ref=e61] [cursor=pointer]
+        - table [ref=e63]:
+          - rowgroup [ref=e64]:
+            - row "اسم الدواء الاسم العلمي التصنيف الشكل الصيدلاني التركيز / الجرعة يستلزم وصفة طبية الحالة الإجراءات" [ref=e65]:
+              - columnheader "اسم الدواء" [ref=e66]
+              - columnheader "الاسم العلمي" [ref=e67]
+              - columnheader "التصنيف" [ref=e68]
+              - columnheader "الشكل الصيدلاني" [ref=e69]
+              - columnheader "التركيز / الجرعة" [ref=e70]
+              - columnheader "يستلزم وصفة طبية" [ref=e71]
+              - columnheader "الحالة" [ref=e72]
+              - columnheader "الإجراءات" [ref=e73]
+          - rowgroup [ref=e74]:
+            - row "أموكسيسيلين Amoxil Amoxicillin المضادات الحيوية كبسولات 500mg يستلزم وصفة نشط    " [ref=e75]:
+              - cell "أموكسيسيلين Amoxil" [ref=e76]:
+                - generic [ref=e77]: أموكسيسيلين
+                - text: Amoxil
+              - cell "Amoxicillin" [ref=e78]
+              - cell "المضادات الحيوية" [ref=e79]
+              - cell "كبسولات" [ref=e80]
+              - cell "500mg" [ref=e81]
+              - cell "يستلزم وصفة" [ref=e82]:
+                - generic [ref=e83]: يستلزم وصفة
+              - cell "نشط" [ref=e84]:
+                - generic [ref=e85]: نشط
+              - cell "   " [ref=e86]:
+                - generic [ref=e87]:
+                  - link "" [ref=e88] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/1
+                    - generic [ref=e89]: 
+                  - link "" [ref=e90] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/1/edit
+                    - generic [ref=e91]: 
+                  - button "" [ref=e93] [cursor=pointer]:
+                    - generic [ref=e94]: 
+                  - button "" [ref=e96] [cursor=pointer]:
+                    - generic [ref=e97]: 
+            - row "أزيثروميسين Zithromax Azithromycin المضادات الحيوية أقراص 250mg يستلزم وصفة نشط    " [ref=e98]:
+              - cell "أزيثروميسين Zithromax" [ref=e99]:
+                - generic [ref=e100]: أزيثروميسين
+                - text: Zithromax
+              - cell "Azithromycin" [ref=e101]
+              - cell "المضادات الحيوية" [ref=e102]
+              - cell "أقراص" [ref=e103]
+              - cell "250mg" [ref=e104]
+              - cell "يستلزم وصفة" [ref=e105]:
+                - generic [ref=e106]: يستلزم وصفة
+              - cell "نشط" [ref=e107]:
+                - generic [ref=e108]: نشط
+              - cell "   " [ref=e109]:
+                - generic [ref=e110]:
+                  - link "" [ref=e111] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/2
+                    - generic [ref=e112]: 
+                  - link "" [ref=e113] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/2/edit
+                    - generic [ref=e114]: 
+                  - button "" [ref=e116] [cursor=pointer]:
+                    - generic [ref=e117]: 
+                  - button "" [ref=e119] [cursor=pointer]:
+                    - generic [ref=e120]: 
+            - row "سيبروفلوكساسين Cipro Ciprofloxacin المضادات الحيوية أقراص 500mg يستلزم وصفة نشط    " [ref=e121]:
+              - cell "سيبروفلوكساسين Cipro" [ref=e122]:
+                - generic [ref=e123]: سيبروفلوكساسين
+                - text: Cipro
+              - cell "Ciprofloxacin" [ref=e124]
+              - cell "المضادات الحيوية" [ref=e125]
+              - cell "أقراص" [ref=e126]
+              - cell "500mg" [ref=e127]
+              - cell "يستلزم وصفة" [ref=e128]:
+                - generic [ref=e129]: يستلزم وصفة
+              - cell "نشط" [ref=e130]:
+                - generic [ref=e131]: نشط
+              - cell "   " [ref=e132]:
+                - generic [ref=e133]:
+                  - link "" [ref=e134] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/3
+                    - generic [ref=e135]: 
+                  - link "" [ref=e136] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/3/edit
+                    - generic [ref=e137]: 
+                  - button "" [ref=e139] [cursor=pointer]:
+                    - generic [ref=e140]: 
+                  - button "" [ref=e142] [cursor=pointer]:
+                    - generic [ref=e143]: 
+            - row "باراسيتامول Panadol Paracetamol مسكنات الألم أقراص 500mg بدون وصفة (OTC) نشط    " [ref=e144]:
+              - cell "باراسيتامول Panadol" [ref=e145]:
+                - generic [ref=e146]: باراسيتامول
+                - text: Panadol
+              - cell "Paracetamol" [ref=e147]
+              - cell "مسكنات الألم" [ref=e148]
+              - cell "أقراص" [ref=e149]
+              - cell "500mg" [ref=e150]
+              - cell "بدون وصفة (OTC)" [ref=e151]:
+                - generic [ref=e152]: بدون وصفة (OTC)
+              - cell "نشط" [ref=e153]:
+                - generic [ref=e154]: نشط
+              - cell "   " [ref=e155]:
+                - generic [ref=e156]:
+                  - link "" [ref=e157] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/4
+                    - generic [ref=e158]: 
+                  - link "" [ref=e159] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/4/edit
+                    - generic [ref=e160]: 
+                  - button "" [ref=e162] [cursor=pointer]:
+                    - generic [ref=e163]: 
+                  - button "" [ref=e165] [cursor=pointer]:
+                    - generic [ref=e166]: 
+            - row "إيبوبروفين Brufen Ibuprofen مسكنات الألم أقراص 400mg بدون وصفة (OTC) نشط    " [ref=e167]:
+              - cell "إيبوبروفين Brufen" [ref=e168]:
+                - generic [ref=e169]: إيبوبروفين
+                - text: Brufen
+              - cell "Ibuprofen" [ref=e170]
+              - cell "مسكنات الألم" [ref=e171]
+              - cell "أقراص" [ref=e172]
+              - cell "400mg" [ref=e173]
+              - cell "بدون وصفة (OTC)" [ref=e174]:
+                - generic [ref=e175]: بدون وصفة (OTC)
+              - cell "نشط" [ref=e176]:
+                - generic [ref=e177]: نشط
+              - cell "   " [ref=e178]:
+                - generic [ref=e179]:
+                  - link "" [ref=e180] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/5
+                    - generic [ref=e181]: 
+                  - link "" [ref=e182] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/5/edit
+                    - generic [ref=e183]: 
+                  - button "" [ref=e185] [cursor=pointer]:
+                    - generic [ref=e186]: 
+                  - button "" [ref=e188] [cursor=pointer]:
+                    - generic [ref=e189]: 
+            - row "ديكلوفيناك Voltaren Diclofenac Sodium مسكنات الألم أقراص 50mg يستلزم وصفة نشط    " [ref=e190]:
+              - cell "ديكلوفيناك Voltaren" [ref=e191]:
+                - generic [ref=e192]: ديكلوفيناك
+                - text: Voltaren
+              - cell "Diclofenac Sodium" [ref=e193]
+              - cell "مسكنات الألم" [ref=e194]
+              - cell "أقراص" [ref=e195]
+              - cell "50mg" [ref=e196]
+              - cell "يستلزم وصفة" [ref=e197]:
+                - generic [ref=e198]: يستلزم وصفة
+              - cell "نشط" [ref=e199]:
+                - generic [ref=e200]: نشط
+              - cell "   " [ref=e201]:
+                - generic [ref=e202]:
+                  - link "" [ref=e203] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/6
+                    - generic [ref=e204]: 
+                  - link "" [ref=e205] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/6/edit
+                    - generic [ref=e206]: 
+                  - button "" [ref=e208] [cursor=pointer]:
+                    - generic [ref=e209]: 
+                  - button "" [ref=e211] [cursor=pointer]:
+                    - generic [ref=e212]: 
+            - row "فيتامين د Devit-3 Vitamin D3 (Cholecalciferol) الفيتامينات والمكملات أقراص 1000 IU بدون وصفة (OTC) نشط    " [ref=e213]:
+              - cell "فيتامين د Devit-3" [ref=e214]:
+                - generic [ref=e215]: فيتامين د
+                - text: Devit-3
+              - cell "Vitamin D3 (Cholecalciferol)" [ref=e216]
+              - cell "الفيتامينات والمكملات" [ref=e217]
+              - cell "أقراص" [ref=e218]
+              - cell "1000 IU" [ref=e219]
+              - cell "بدون وصفة (OTC)" [ref=e220]:
+                - generic [ref=e221]: بدون وصفة (OTC)
+              - cell "نشط" [ref=e222]:
+                - generic [ref=e223]: نشط
+              - cell "   " [ref=e224]:
+                - generic [ref=e225]:
+                  - link "" [ref=e226] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/7
+                    - generic [ref=e227]: 
+                  - link "" [ref=e228] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/7/edit
+                    - generic [ref=e229]: 
+                  - button "" [ref=e231] [cursor=pointer]:
+                    - generic [ref=e232]: 
+                  - button "" [ref=e234] [cursor=pointer]:
+                    - generic [ref=e235]: 
+            - row "فيتامين ج Redoxon Ascorbic Acid الفيتامينات والمكملات أقراص 1000mg بدون وصفة (OTC) نشط    " [ref=e236]:
+              - cell "فيتامين ج Redoxon" [ref=e237]:
+                - generic [ref=e238]: فيتامين ج
+                - text: Redoxon
+              - cell "Ascorbic Acid" [ref=e239]
+              - cell "الفيتامينات والمكملات" [ref=e240]
+              - cell "أقراص" [ref=e241]
+              - cell "1000mg" [ref=e242]
+              - cell "بدون وصفة (OTC)" [ref=e243]:
+                - generic [ref=e244]: بدون وصفة (OTC)
+              - cell "نشط" [ref=e245]:
+                - generic [ref=e246]: نشط
+              - cell "   " [ref=e247]:
+                - generic [ref=e248]:
+                  - link "" [ref=e249] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/8
+                    - generic [ref=e250]: 
+                  - link "" [ref=e251] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/8/edit
+                    - generic [ref=e252]: 
+                  - button "" [ref=e254] [cursor=pointer]:
+                    - generic [ref=e255]: 
+                  - button "" [ref=e257] [cursor=pointer]:
+                    - generic [ref=e258]: 
+            - row "أملوديبين Norvasc Amlodipine أدوية القلب والضغط أقراص 5mg يستلزم وصفة نشط    " [ref=e259]:
+              - cell "أملوديبين Norvasc" [ref=e260]:
+                - generic [ref=e261]: أملوديبين
+                - text: Norvasc
+              - cell "Amlodipine" [ref=e262]
+              - cell "أدوية القلب والضغط" [ref=e263]
+              - cell "أقراص" [ref=e264]
+              - cell "5mg" [ref=e265]
+              - cell "يستلزم وصفة" [ref=e266]:
+                - generic [ref=e267]: يستلزم وصفة
+              - cell "نشط" [ref=e268]:
+                - generic [ref=e269]: نشط
+              - cell "   " [ref=e270]:
+                - generic [ref=e271]:
+                  - link "" [ref=e272] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/9
+                    - generic [ref=e273]: 
+                  - link "" [ref=e274] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/9/edit
+                    - generic [ref=e275]: 
+                  - button "" [ref=e277] [cursor=pointer]:
+                    - generic [ref=e278]: 
+                  - button "" [ref=e280] [cursor=pointer]:
+                    - generic [ref=e281]: 
+            - row "ليزينوبريل Zestril Lisinopril أدوية القلب والضغط أقراص 10mg يستلزم وصفة نشط    " [ref=e282]:
+              - cell "ليزينوبريل Zestril" [ref=e283]:
+                - generic [ref=e284]: ليزينوبريل
+                - text: Zestril
+              - cell "Lisinopril" [ref=e285]
+              - cell "أدوية القلب والضغط" [ref=e286]
+              - cell "أقراص" [ref=e287]
+              - cell "10mg" [ref=e288]
+              - cell "يستلزم وصفة" [ref=e289]:
+                - generic [ref=e290]: يستلزم وصفة
+              - cell "نشط" [ref=e291]:
+                - generic [ref=e292]: نشط
+              - cell "   " [ref=e293]:
+                - generic [ref=e294]:
+                  - link "" [ref=e295] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/10
+                    - generic [ref=e296]: 
+                  - link "" [ref=e297] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/10/edit
+                    - generic [ref=e298]: 
+                  - button "" [ref=e300] [cursor=pointer]:
+                    - generic [ref=e301]: 
+                  - button "" [ref=e303] [cursor=pointer]:
+                    - generic [ref=e304]: 
+            - row "أوميبرازول Losec Omeprazole أدوية الجهاز الهضمي كبسولات 20mg بدون وصفة (OTC) نشط    " [ref=e305]:
+              - cell "أوميبرازول Losec" [ref=e306]:
+                - generic [ref=e307]: أوميبرازول
+                - text: Losec
+              - cell "Omeprazole" [ref=e308]
+              - cell "أدوية الجهاز الهضمي" [ref=e309]
+              - cell "كبسولات" [ref=e310]
+              - cell "20mg" [ref=e311]
+              - cell "بدون وصفة (OTC)" [ref=e312]:
+                - generic [ref=e313]: بدون وصفة (OTC)
+              - cell "نشط" [ref=e314]:
+                - generic [ref=e315]: نشط
+              - cell "   " [ref=e316]:
+                - generic [ref=e317]:
+                  - link "" [ref=e318] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/11
+                    - generic [ref=e319]: 
+                  - link "" [ref=e320] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/11/edit
+                    - generic [ref=e321]: 
+                  - button "" [ref=e323] [cursor=pointer]:
+                    - generic [ref=e324]: 
+                  - button "" [ref=e326] [cursor=pointer]:
+                    - generic [ref=e327]: 
+            - row "ميتوكلوبراميد Primperan Metoclopramide أدوية الجهاز الهضمي أقراص 10mg يستلزم وصفة نشط    " [ref=e328]:
+              - cell "ميتوكلوبراميد Primperan" [ref=e329]:
+                - generic [ref=e330]: ميتوكلوبراميد
+                - text: Primperan
+              - cell "Metoclopramide" [ref=e331]
+              - cell "أدوية الجهاز الهضمي" [ref=e332]
+              - cell "أقراص" [ref=e333]
+              - cell "10mg" [ref=e334]
+              - cell "يستلزم وصفة" [ref=e335]:
+                - generic [ref=e336]: يستلزم وصفة
+              - cell "نشط" [ref=e337]:
+                - generic [ref=e338]: نشط
+              - cell "   " [ref=e339]:
+                - generic [ref=e340]:
+                  - link "" [ref=e341] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/12
+                    - generic [ref=e342]: 
+                  - link "" [ref=e343] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/12/edit
+                    - generic [ref=e344]: 
+                  - button "" [ref=e346] [cursor=pointer]:
+                    - generic [ref=e347]: 
+                  - button "" [ref=e349] [cursor=pointer]:
+                    - generic [ref=e350]: 
+            - row "سالبوتامول Ventolin Salbutamol أدوية الجهاز التنفسي بخاخ 100mcg/dose يستلزم وصفة نشط    " [ref=e351]:
+              - cell "سالبوتامول Ventolin" [ref=e352]:
+                - generic [ref=e353]: سالبوتامول
+                - text: Ventolin
+              - cell "Salbutamol" [ref=e354]
+              - cell "أدوية الجهاز التنفسي" [ref=e355]
+              - cell "بخاخ" [ref=e356]
+              - cell "100mcg/dose" [ref=e357]
+              - cell "يستلزم وصفة" [ref=e358]:
+                - generic [ref=e359]: يستلزم وصفة
+              - cell "نشط" [ref=e360]:
+                - generic [ref=e361]: نشط
+              - cell "   " [ref=e362]:
+                - generic [ref=e363]:
+                  - link "" [ref=e364] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/13
+                    - generic [ref=e365]: 
+                  - link "" [ref=e366] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/13/edit
+                    - generic [ref=e367]: 
+                  - button "" [ref=e369] [cursor=pointer]:
+                    - generic [ref=e370]: 
+                  - button "" [ref=e372] [cursor=pointer]:
+                    - generic [ref=e373]: 
+            - row "ميتفورمين Glucophage Metformin HCl أدوية السكري أقراص 500mg يستلزم وصفة نشط    " [ref=e374]:
+              - cell "ميتفورمين Glucophage" [ref=e375]:
+                - generic [ref=e376]: ميتفورمين
+                - text: Glucophage
+              - cell "Metformin HCl" [ref=e377]
+              - cell "أدوية السكري" [ref=e378]
+              - cell "أقراص" [ref=e379]
+              - cell "500mg" [ref=e380]
+              - cell "يستلزم وصفة" [ref=e381]:
+                - generic [ref=e382]: يستلزم وصفة
+              - cell "نشط" [ref=e383]:
+                - generic [ref=e384]: نشط
+              - cell "   " [ref=e385]:
+                - generic [ref=e386]:
+                  - link "" [ref=e387] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/14
+                    - generic [ref=e388]: 
+                  - link "" [ref=e389] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/14/edit
+                    - generic [ref=e390]: 
+                  - button "" [ref=e392] [cursor=pointer]:
+                    - generic [ref=e393]: 
+                  - button "" [ref=e395] [cursor=pointer]:
+                    - generic [ref=e396]: 
+            - row "إنسولين هيومن Actrapid Human Insulin أدوية السكري حقن 100 IU/ml يستلزم وصفة نشط    " [ref=e397]:
+              - cell "إنسولين هيومن Actrapid" [ref=e398]:
+                - generic [ref=e399]: إنسولين هيومن
+                - text: Actrapid
+              - cell "Human Insulin" [ref=e400]
+              - cell "أدوية السكري" [ref=e401]
+              - cell "حقن" [ref=e402]
+              - cell "100 IU/ml" [ref=e403]
+              - cell "يستلزم وصفة" [ref=e404]:
+                - generic [ref=e405]: يستلزم وصفة
+              - cell "نشط" [ref=e406]:
+                - generic [ref=e407]: نشط
+              - cell "   " [ref=e408]:
+                - generic [ref=e409]:
+                  - link "" [ref=e410] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/15
+                    - generic [ref=e411]: 
+                  - link "" [ref=e412] [cursor=pointer]:
+                    - /url: https://health-links.test/hospital-admin/medicines/15/edit
+                    - generic [ref=e413]: 
+                  - button "" [ref=e415] [cursor=pointer]:
+                    - generic [ref=e416]: 
+                  - button "" [ref=e418] [cursor=pointer]:
+                    - generic [ref=e419]: 
+        - navigation [ref=e421]:
+          - generic [ref=e422]:
+            - generic [ref=e423]: Showing 1 to 15 of 20 results
+            - list [ref=e425]:
+              - listitem "« السابق" [ref=e426]:
+                - generic: ‹
+              - listitem [ref=e427]:
+                - generic [ref=e428] [cursor=pointer]: "1"
+              - listitem [ref=e429]:
+                - link "2" [ref=e430] [cursor=pointer]:
+                  - /url: https://health-links.test/hospital-admin/medicines?page=2
+              - listitem [ref=e431]:
+                - link "التالي »" [ref=e432] [cursor=pointer]:
+                  - /url: https://health-links.test/hospital-admin/medicines?page=2
+                  - text: ›
+      - contentinfo [ref=e433]:
+        - generic [ref=e436]: © 2026 — الاسم

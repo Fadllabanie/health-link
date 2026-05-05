@@ -1,0 +1,146 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - link "الاسم" [ref=e6] [cursor=pointer]:
+        - /url: https://health-links.test/dashboard
+        - img [ref=e9]
+        - generic [ref=e13]: الاسم
+      - link [ref=e14] [cursor=pointer]:
+        - /url: javascript:void(0);
+    - list [ref=e16]:
+      - listitem [ref=e17]:
+        - link " لوحة التحكم" [ref=e18] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/dashboard
+          - generic [ref=e19]: 
+          - generic [ref=e20]: لوحة التحكم
+      - listitem [ref=e21]:
+        - generic [ref=e22]: الإدارة
+      - listitem [ref=e23]:
+        - link " الأطباء" [ref=e24] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/doctors
+          - generic [ref=e25]: 
+          - generic [ref=e26]: الأطباء
+      - listitem [ref=e27]:
+        - link " المرضى" [ref=e28] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/patients
+          - generic [ref=e29]: 
+          - generic [ref=e30]: المرضى
+      - listitem [ref=e31]:
+        - link " الصيدليات" [ref=e32] [cursor=pointer]:
+          - /url: https://health-links.test/hospital-admin/pharmacies
+          - generic [ref=e33]: 
+          - generic [ref=e34]: الصيدليات
+  - generic [ref=e35]:
+    - navigation [ref=e36]:
+      - generic [ref=e37]:
+        - generic:
+          - navigation "breadcrumb":
+            - list
+        - list [ref=e38]:
+          - listitem [ref=e39]:
+            - link [ref=e40] [cursor=pointer]:
+              - /url: javascript:void(0);
+          - listitem [ref=e42]:
+            - link [ref=e43] [cursor=pointer]:
+              - /url: javascript:void(0);
+    - generic [ref=e45]:
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - link "" [ref=e51] [cursor=pointer]:
+            - /url: https://health-links.test/hospital-admin/medicines
+            - generic [ref=e52]: 
+          - heading "إضافة دواء" [level=5] [ref=e53]
+        - generic [ref=e55]:
+          - heading "دواء" [level=6] [ref=e56]
+          - generic [ref=e57]:
+            - generic [ref=e58]:
+              - generic [ref=e59]: اسم الدواء *
+              - textbox [ref=e60]
+            - generic [ref=e61]:
+              - generic [ref=e62]: الاسم العلمي
+              - textbox [ref=e63]
+            - generic [ref=e64]:
+              - generic [ref=e65]: الاسم التجاري
+              - textbox [ref=e66]
+            - generic [ref=e67]:
+              - generic [ref=e68]: الباركود
+              - textbox [ref=e69]
+            - generic [ref=e70]:
+              - generic [ref=e71]: التصنيف
+              - combobox [ref=e72]:
+                - option "-- جميع التصنيفات --" [selected]
+                - option "أدوية الجهاز التنفسي"
+                - option "أدوية الجهاز الهضمي"
+                - option "أدوية الحساسية"
+                - option "أدوية السكري"
+                - option "أدوية القلب والضغط"
+                - option "الأدوية النفسية والعصبية"
+                - option "الفيتامينات والمكملات"
+                - option "المسكنات المخدرة"
+                - option "المضادات الحيوية"
+                - option "الهرمونات"
+                - option "بيتالاكتام"
+                - option "ماكرولايد"
+                - option "مسكنات الألم"
+                - option "مسكنات الألم غير المخدرة"
+            - generic [ref=e73]:
+              - generic [ref=e74]: الشركة المصنّعة
+              - textbox [ref=e75]
+          - separator [ref=e76]
+          - heading "الشكل الصيدلاني & التركيز / الجرعة" [level=6] [ref=e77]
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - generic [ref=e80]: الشكل الصيدلاني *
+              - combobox [ref=e81]:
+                - option "-- اختر --" [selected]
+                - option "أقراص"
+                - option "كبسولات"
+                - option "شراب"
+                - option "حقن"
+                - option "كريم"
+                - option "قطرات"
+                - option "بخاخ"
+                - option "أخرى"
+            - generic [ref=e82]:
+              - generic [ref=e83]: التركيز / الجرعة
+              - 'textbox "مثال: 500mg" [ref=e84]'
+            - generic [ref=e85]:
+              - generic [ref=e86]: الوحدة
+              - 'textbox "مثال: mg" [ref=e87]'
+          - separator [ref=e88]
+          - heading "الوصف" [level=6] [ref=e89]
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - generic [ref=e92]: الوصف
+              - textbox [ref=e93]
+            - generic [ref=e94]:
+              - generic [ref=e95]: الآثار الجانبية
+              - textbox [ref=e96]
+            - generic [ref=e97]:
+              - generic [ref=e98]: موانع الاستعمال
+              - textbox [ref=e99]
+            - generic [ref=e100]:
+              - generic [ref=e101]: تعليمات الجرعة
+              - textbox [ref=e102]
+          - separator [ref=e103]
+          - heading "الحالة" [level=6] [ref=e104]
+          - generic [ref=e105]:
+            - generic [ref=e106]:
+              - generic [ref=e107]: صورة الدواء
+              - button "Choose File" [ref=e108] [cursor=pointer]
+            - generic [ref=e109]:
+              - generic [ref=e110]:
+                - checkbox "يستلزم وصفة طبية" [checked] [ref=e111] [cursor=pointer]
+                - generic [ref=e112] [cursor=pointer]: يستلزم وصفة طبية
+              - generic [ref=e113]:
+                - checkbox "دواء مراقَب" [ref=e114] [cursor=pointer]
+                - generic [ref=e115] [cursor=pointer]: دواء مراقَب
+              - generic [ref=e116]:
+                - checkbox "نشط" [checked] [ref=e117] [cursor=pointer]
+                - generic [ref=e118] [cursor=pointer]: نشط
+          - generic [ref=e119]:
+            - button "حفظ" [ref=e120] [cursor=pointer]
+            - link "إلغاء" [ref=e121] [cursor=pointer]:
+              - /url: https://health-links.test/hospital-admin/medicines
+      - contentinfo [ref=e122]:
+        - generic [ref=e125]: © 2026 — الاسم

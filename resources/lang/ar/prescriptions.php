@@ -76,4 +76,6 @@ return [
     'reject' => 'رفض',
     'reject_reason_placeholder' => 'أدخل سبب الرفض...',
     'confirm_reject' => 'هل أنت متأكد من رفض هذه الوصفة؟',
+    'latest_prescription' => 'آخر وصفة طبية',
+    'all_prescriptions' => 'جميع الوصفات الطبية',
 ];

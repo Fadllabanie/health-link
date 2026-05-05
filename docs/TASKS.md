@@ -367,28 +367,28 @@
 
 ## Phase 7 — Medical Records
 
-### [ ] T7.1 — Migration: medical_records
+### [x] T7.1 — Migration: medical_records
 - Per ERD §Medical Records
 - FKs: patient_id (cascade), doctor_id (restrict), hospital_id (restrict)
 - Soft deletes; indexes per ERD including composite `(patient_id, visit_date)`
 - **Verify:** migration runs
 
-### [ ] T7.2 — Migration: medical_record_attachments
+### [x] T7.2 — Migration: medical_record_attachments
 - Per ERD; FK to medical_records (cascade), uploaded_by → users
 - **Verify:** migration runs
 
-### [ ] T7.3 — Models: MedicalRecord, MedicalRecordAttachment
+### [x] T7.3 — Models: MedicalRecord, MedicalRecordAttachment
 - `MedicalRecord`: SoftDeletes, BelongsToHospital, Auditable; relations to patient, doctor, hospital, attachments, prescriptions; UUID auto-generated
 - `MedicalRecordAttachment`: relation to medicalRecord, uploader; accessor for full file URL
 - **Verify:** factories work
 
-### [ ] T7.4 — Doctor: View patient medical history (FR-DR-005)
+### [x] T7.4 — Doctor: View patient medical history (FR-DR-005)
 - Route: `GET /doctor/patients/{patient}/medical-history`
 - Authorization Policy: doctor can only view patients in their hospital(s)
 - Show timeline of medical_records (most recent first)
 - **Verify:** doctor in different hospital cannot access
 
-### [ ] T7.5 — Doctor: Add medical record entry (FR-DR-006)
+### [x] T7.5 — Doctor: Add medical record entry (FR-DR-006)
 - Route: `POST /doctor/patients/{patient}/medical-records`
 - FormRequest validates: visit_type, notes, diagnosis required
 - Optional file uploads → store via attachments
@@ -396,12 +396,12 @@
 - Audit logged
 - **Verify:** record + attachments saved together
 
-### [ ] T7.6 — Doctor: Edit medical record (FR-DR-007)
+### [x] T7.6 — Doctor: Edit medical record (FR-DR-007)
 - Only allowed if record status is `draft` OR within edit window (per system policy — define as 24h after finalize)
 - Status `amended` after edit of finalized record
 - **Verify:** finalized record older than 24h cannot be edited
 
-### [ ] T7.7 — File upload security
+### [x] T7.7 — File upload security
 - Validate MIME types: pdf, jpg, png, doc, docx
 - Max size 10MB
 - Store under `storage/app/public/medical-records/{patient_id}/`
@@ -580,47 +580,47 @@
 
 > Patient self-service — view-only access to own data.
 
-### [ ] T11.1 — Patient routes & middleware
+### [x] T11.1 — Patient routes & middleware
 - Routes group: `routes/patient.php`, prefix `/patient`, middleware `auth`, `role:patient`
 - Authorization Policy: every action ensures `auth()->user()->patient->id == $resource->patient_id`
 
-### [ ] T11.2 — Patient Dashboard / Profile (FR-PA-002, FR-PA-003)
+### [x] T11.2 — Patient Dashboard / Profile (FR-PA-002, FR-PA-003)
 - Route: `GET /patient/dashboard`
 - Shows: profile card with name, MRN, phone, email, DOB, gender, city, blood type, allergies summary
 - MRN displayed prominently (FR-PA-003)
 - **Verify:** patient sees own data only
 
-### [ ] T11.3 — Patient QR code page (FR-PA-004)
+### [x] T11.3 — Patient QR code page (FR-PA-004)
 - Route: `GET /patient/qr-code`
 - Shows the QR image, downloadable as PNG
 - "Regenerate" button (writes audit log)
 - **Verify:** QR resolves to latest prescription per FR-PA-006
 
-### [ ] T11.4 — Public QR resolver (FR-PA-006)
+### [x] T11.4 — Public QR resolver (FR-PA-006)
 - Route: `GET /qr/{code}` — public but rate-limited
 - Resolves QR, increments scan_count
 - Returns latest prescription view (or "no prescription" page)
 - Sensitive data masked unless authenticated (e.g., shows medicines but not full medical history)
 - **Verify:** scanning works; expired QR shows error
 
-### [ ] T11.5 — Patient: Latest prescription (FR-PA-005)
+### [x] T11.5 — Patient: Latest prescription (FR-PA-005)
 - Route: `GET /patient/prescriptions/latest`
 - Shows most recent prescription with full details: doctor name, hospital, items, instructions, status
 - **Verify:** displays correctly
 
-### [ ] T11.6 — Patient: All prescriptions (FR-PA-007, FR-PA-008)
+### [x] T11.6 — Patient: All prescriptions (FR-PA-007, FR-PA-008)
 - Route: `GET /patient/prescriptions` — paginated list
 - Route: `GET /patient/prescriptions/{prescription}` — detail view
 - Status badge + history
 - **Verify:** patient cannot see another patient's prescription via URL tampering (Policy enforces)
 
-### [ ] T11.7 — Patient: Medical history (FR-PA-009)
+### [x] T11.7 — Patient: Medical history (FR-PA-009)
 - Route: `GET /patient/medical-history`
 - Shows medical records timeline with attachments
 - Read-only
 - **Verify:** sorted by visit_date desc; attachments downloadable
 
-### [ ] T11.8 — Patient: Prescription status (FR-PA-010)
+### [x] T11.8 — Patient: Prescription status (FR-PA-010)
 - Status displayed on each prescription view (already covered by T11.6)
 - Optional: WebSocket/polling for live updates (out of scope v1 — show status on page load)
 

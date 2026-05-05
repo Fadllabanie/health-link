@@ -28,7 +28,9 @@ Route::middleware(['auth', 'role:hospital_admin', 'hospital.context'])
 
         // Patients (read-only list + create by admin/doctor)
         Route::resource('patients', PatientController::class)
-            ->only(['index', 'create', 'store', 'show']);
+            ->only(['index', 
+            // 'create', 'store',
+            'show']);
 
         // Medicine catalog (global, no hospital_id scoping)
         Route::resource('medicines', MedicineController::class);

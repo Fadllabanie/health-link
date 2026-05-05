@@ -1,0 +1,17 @@
+- generic [ref=e5]:
+  - heading "الاسم 👋" [level=4] [ref=e6]
+  - paragraph [ref=e7]: يرجى تسجيل الدخول للمتابعة
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - textbox "البريد الإلكتروني" [active] [ref=e10]
+      - generic: البريد الإلكتروني
+    - generic [ref=e14]:
+      - textbox "كلمة المرور" [ref=e15]
+      - generic: كلمة المرور
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - checkbox "تذكّرني" [ref=e20] [cursor=pointer]
+        - generic [ref=e21] [cursor=pointer]: تذكّرني
+      - link "نسيت كلمة المرور؟" [ref=e22] [cursor=pointer]:
+        - /url: https://health-links.test/forgot-password
+    - button "تسجيل الدخول" [ref=e23] [cursor=pointer]

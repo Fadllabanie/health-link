@@ -6,10 +6,10 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">{{ __('patients.patients') }}</h5>
-        <a href="{{ route('hospital-admin.patients.create') }}" class="btn btn-primary btn-sm">
+        {{-- <a href="{{ route('hospital-admin.patients.create') }}" class="btn btn-primary btn-sm">
             <span class="iconify" data-icon="tabler:plus"></span>
             {{ __('patients.add_patient') }}
-        </a>
+        </a> --}}
     </div>
 
     <div class="card-body border-bottom pb-3">
