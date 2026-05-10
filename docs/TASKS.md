@@ -497,6 +497,26 @@
 - Low stock report (quantity <= reorder_level)
 - **Verify:** reports return correct data
 
+### [x] T9.10 — Hospital Admin: Inventory management (FR-HA-006a, FR-HA-006b)
+- Routes nested under `pharmacies/{pharmacy}/inventory` (index, create, store, show, edit, update)
+- Controller: `App\Http\Controllers\HospitalAdmin\InventoryController`
+- Delegates to existing `InventoryService` (addStock, updateStock)
+- Authorization: `abort_unless($pharmacy->hospital_id === session('current_hospital_id'), 403)`
+- FormRequests: `StoreInventoryRequest`, `UpdateInventoryRequest` in HospitalAdmin namespace
+- Views in `hospital-admin/inventory/` following `pharmacy/inventory/` pattern
+- Stock movements row created on add/update via InventoryService
+- No new translations needed — `pharmacies.php` already has all 24 inventory keys
+- **Verify:** hospital admin can add stock; stock_movements row created; 403 on cross-hospital pharmacy access
+
+### [x] T9.11 — Hospital Admin: Prescription orders monitoring (FR-HA-007)
+- Routes: `GET /hospital-admin/prescriptions` (index) + `GET /hospital-admin/prescriptions/{prescription}` (show, read-only)
+- Controller: `App\Http\Controllers\HospitalAdmin\PrescriptionController`
+- Filters: status, doctor, pharmacy, date_from, date_to, search (prescription_number / patient name)
+- Eager load: `patient.user`, `doctor.user`, `pharmacy`, `items.medicine`, `dispensedBy`
+- Views: `hospital-admin/prescriptions/{index,show}.blade.php`
+- Sidebar updated with prescriptions link
+- **Verify:** hospital admin sees only own-hospital prescriptions; no action buttons shown
+
 ---
 
 ## Phase 10 — Prescriptions
@@ -765,6 +785,33 @@
 
 ---
 
+## Phase 15 — Doctor Dashboard: Patient Management & Profile
+
+> الميزات الناقصة من لوحة تحكم الطبيب (FR-DR-001 → FR-DR-004, FR-DR-014).
+
+### [ ] T15.1 — Doctor: Patient List & Search (FR-DR-001, FR-DR-002, FR-DR-003)
+- Route: `GET /doctor/patients` → `Doctor\PatientController@index`
+- يعرض مرضى المستشفى الحالي مُصفَّين بـ `hospital_id` من الجلسة
+- بحث بـ: اسم المريض (first_name / last_name)، رقم السجل الطبي (MRN)، رقم الهاتف
+- Pagination: 15 per page + `withQueryString()`
+- كل صف: الاسم الكامل، MRN، الجنس، فصيلة الدم، رابط "عرض التفاصيل" + "التاريخ الطبي"
+- **Verify:** طبيب في مستشفى A لا يرى مرضى مستشفى B
+
+### [ ] T15.2 — Doctor: Patient Detail View (FR-DR-004)
+- Route: `GET /doctor/patients/{patient}` → `Doctor\PatientController@show`
+- تحقق: `abort_if($patient->hospital_id !== session('current_hospital_id'), 403)`
+- يعرض: البيانات الشخصية، البيانات الطبية، جهة طوارئ، آخر 5 سجلات طبية
+- روابط سريعة: التاريخ الطبي، إضافة سجل، إنشاء وصفة
+- **Verify:** URL tampering لمريض مستشفى آخر → 403
+
+### [ ] T15.3 — Doctor: Professional Profile (FR-DR-014)
+- Route: `GET /doctor/profile` → `Doctor\ProfileController@show`
+- يعرض: البيانات الشخصية، البيانات المهنية (تخصص، قسم، ترخيص، خبرة)، بيانات المستشفى، جدول الدوام
+- View-only — لا تعديل (التعديل عبر Hospital Admin)
+- **Verify:** `auth()->user()->doctor` محمّل بكامل العلاقات
+
+---
+
 ## Cross-Cutting Concerns (Apply Throughout)
 
 These are not standalone tasks but **rules for every task**:
@@ -826,3 +873,6 @@ These are not standalone tasks but **rules for every task**:
 - 2026-05-03 T3.6 done — PATCH hospitals/{hospital}/status in HospitalController@updateStatus; invalidates sessions of hospital users on inactive/suspended; soft-delete via destroy()
 - 2026-05-03 T3.7 done — HospitalAdminController: index/create/store/edit/update/disable/resetPassword; nested routes under hospitals/{hospital}/admins; all actions audit-log
 - 2026-05-03 T3.8 done — DashboardController: 4 stat cards (total/active/suspended/inactive hospitals + total users) + recent audit_logs (last 10); view: super-admin/dashboard.blade.php
+- 2026-05-05 T9.10 done — HospitalAdmin\InventoryController (nested under pharmacies), StoreInventoryRequest, UpdateInventoryRequest, 4 views; delegates to InventoryService; 403 on cross-hospital access
+- 2026-05-05 T9.11 done — HospitalAdmin\PrescriptionController (read-only index+show scoped to hospital), 2 views, sidebar updated with prescriptions link
+- 2026-05-05 Phase 15 scaffolded — Doctor\PatientController (index+show), Doctor\ProfileController (show), 3 views, 3 routes added to routes/doctor.php; Arabic translation keys added

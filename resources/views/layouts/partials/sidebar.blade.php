@@ -12,9 +12,7 @@
             </span>
             <span class="app-brand-text demo menu-text fw-semibold ms-2">{{ __('app.name') }}</span>
         </a>
-        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-            <i class="menu-toggle-icon d-xl-inline-block align-middle"></i>
-        </a>
+       
     </div>
 
     <div class="menu-inner-shadow"></div>

@@ -126,8 +126,12 @@
     {{-- Inventory Summary --}}
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0">{{ __('pharmacies.inventory') }}</h5>
+                <a href="{{ route('hospital-admin.pharmacies.inventory.index', $pharmacy) }}" class="btn btn-sm btn-outline-primary">
+                    <span class="iconify" data-icon="tabler:package"></span>
+                    {{ __('pharmacies.inventory') }}
+                </a>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover">

@@ -67,7 +67,7 @@
                     </li>
                     <li><div class="dropdown-divider my-1"></div></li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
                             <i class="icon-base ri ri-user-line icon-md me-3"></i>
                             <span>{{ __('app.my_profile') }}</span>
                         </a>

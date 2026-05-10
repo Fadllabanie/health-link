@@ -2,11 +2,18 @@
 
 use App\Http\Controllers\Doctor\DashboardController;
 use App\Http\Controllers\Doctor\MedicalRecordController;
+use App\Http\Controllers\Doctor\PatientController;
 use App\Http\Controllers\Doctor\PrescriptionController;
+use App\Http\Controllers\Doctor\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('doctor')->name('doctor.')->middleware(['auth', 'role:doctor', 'hospital.context'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('profile', [ProfileController::class, 'show'])->name('profile');
+
+    Route::get('patients', [PatientController::class, 'index'])->name('patients.index');
+    Route::get('patients/{patient}', [PatientController::class, 'show'])->name('patients.show');
 
     Route::get('patients/{patient}/medical-history', [MedicalRecordController::class, 'history'])
         ->name('patients.medical-history');
