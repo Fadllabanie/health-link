@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prescription;
-use Illuminate\Http\View;
+use Illuminate\View\View;
 
 class PrescriptionController extends Controller
 {

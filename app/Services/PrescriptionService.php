@@ -163,7 +163,13 @@ class PrescriptionService
                     ->where('medicine_id', $item->medicine_id)
                     ->where('quantity_in_stock', '>=', $qtyToDispense)
                     ->orderBy('expiry_date')
-                    ->firstOrFail();
+                    ->first();
+
+                if (! $inventory) {
+                    throw new \RuntimeException(__('prescriptions.insufficient_stock', [
+                        'medicine' => $item->medicine?->name ?? '#'.$item->medicine_id,
+                    ]));
+                }
 
                 $inventory->decrement('quantity_in_stock', $qtyToDispense);
 

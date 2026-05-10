@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 class QrCode extends Model
 {
@@ -35,7 +35,7 @@ class QrCode extends Model
     public function regenerate(): static
     {
         $this->update([
-            'code' => Crypt::encryptString(uniqid((string) $this->qrable_id, true)),
+            'code' => Str::random(64),
             'is_active' => true,
             'scan_count' => 0,
             'last_scanned_at' => null,

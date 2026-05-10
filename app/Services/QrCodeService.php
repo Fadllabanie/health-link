@@ -5,15 +5,15 @@ namespace App\Services;
 use App\Models\Patient;
 use App\Models\Prescription;
 use App\Models\QrCode;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use SimpleSoftwareIO\QrCode\Facades\QrCode as QrCodeGenerator;
 
 class QrCodeService
 {
     public function generateForPatient(Patient $patient): QrCode
     {
-        $token = Crypt::encryptString($patient->id.'|'.uniqid('', true));
+        $token = Str::random(64);
 
         $imagePath = $this->saveImage($token);
 
@@ -32,7 +32,7 @@ class QrCodeService
 
     public function generateForPrescription(Prescription $prescription): QrCode
     {
-        $token = Crypt::encryptString($prescription->id.'|rx|'.uniqid('', true));
+        $token = Str::random(64);
         $imagePath = $this->saveImage($token);
 
         return QrCode::create([
@@ -50,7 +50,7 @@ class QrCodeService
             Storage::disk('public')->delete($qr->image_path);
         }
 
-        $token = Crypt::encryptString($qr->qrable_id.'|'.uniqid('', true));
+        $token = Str::random(64);
         $imagePath = $this->saveImage($token);
 
         $qr->update([
