@@ -1,58 +1,163 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Health Links
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel 13 medical platform. Runs via Docker.
 
-## About Laravel
+## Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 8.3 (FPM)
+- Laravel 13
+- Nginx
+- MySQL 8.0
+- phpMyAdmin
+- Node 20 (Vite build)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Ports
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Service     | URL                       |
+|-------------|---------------------------|
+| App         | http://localhost:3355     |
+| phpMyAdmin  | http://localhost:3357     |
+| MySQL       | localhost:3356            |
 
-## Learning Laravel
+## Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Docker Desktop
+- Docker Compose v2
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## First-time setup
 
 ```bash
-composer require laravel/boost --dev
+# 1. clone repo, cd into it
 
-php artisan boost:install
+# 2. copy docker env
+cp .env.docker .env
+
+# 3. build and start containers
+docker compose up -d --build
+
+# 4. install PHP deps
+docker compose exec app composer install
+
+# 5. generate app key (skip if .env already has APP_KEY)
+docker compose exec app php artisan key:generate
+
+# 6. run migrations + seeders
+docker compose exec app php artisan migrate --seed
+
+# 7. install frontend deps + build assets
+docker compose exec app npm install
+docker compose exec app npm run build
+
+# 8. storage symlink
+docker compose exec app php artisan storage:link
+
+# 9. fix permissions
+docker compose exec app chmod -R 775 storage bootstrap/cache
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+App ready: http://localhost:3355
 
-## Contributing
+## Daily commands
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+# start
+docker compose up -d
 
-## Code of Conduct
+# stop
+docker compose down
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# rebuild after Dockerfile change
+docker compose up -d --build
 
-## Security Vulnerabilities
+# view logs
+docker compose logs -f app
+docker compose logs -f nginx
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# shell into app container
+docker compose exec app bash
+
+# artisan
+docker compose exec app php artisan <command>
+
+# composer
+docker compose exec app composer <command>
+
+# tests
+docker compose exec app php artisan test
+
+# pint
+docker compose exec app vendor/bin/pint --dirty
+```
+
+## Frontend dev (HMR)
+
+```bash
+docker compose exec app npm run dev
+```
+
+Or rebuild static:
+
+```bash
+docker compose exec app npm run build
+```
+
+## Database access
+
+**phpMyAdmin:** http://localhost:3357
+- User: `root`
+- Pass: `root`
+
+**External client (TablePlus, DBeaver, etc.):**
+- Host: `127.0.0.1`
+- Port: `3356`
+- DB: `health_links`
+- User: `root`
+- Pass: `root`
+
+**Inside containers:**
+- Host: `db`
+- Port: `3306`
+
+## Troubleshooting
+
+**Permission errors on storage/cache:**
+```bash
+docker compose exec app chmod -R 775 storage bootstrap/cache
+docker compose exec app chown -R laravel:www-data storage bootstrap/cache
+```
+
+**Port 3355 already in use:**
+Edit `docker-compose.yml` → `nginx.ports` → change `"3355:80"` to free port.
+
+**Reset DB:**
+```bash
+docker compose down -v
+docker compose up -d
+docker compose exec app php artisan migrate:fresh --seed
+```
+
+**Vite manifest missing:**
+```bash
+docker compose exec app npm run build
+```
+
+**Clear Laravel caches:**
+```bash
+docker compose exec app php artisan optimize:clear
+```
+
+## Project structure
+
+- `app/` — Laravel application code (controllers, models, services)
+- `routes/` — route definitions (web.php, api.php, ai.php)
+- `database/migrations` — schema migrations
+- `database/seeders` — test data seeders
+- `resources/views` — Blade templates (Arabic RTL)
+- `tests/` — Pest tests
+- `docker/` — nginx config
+- `Dockerfile` — app image definition
+- `docker-compose.yml` — service orchestration
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT
