@@ -10,6 +10,9 @@
         </a>
         <h5 class="mb-0">{{ __('patients.patient_details') }}</h5>
         <div class="ms-auto d-flex gap-2">
+            <a href="{{ route('doctor.patients.edit', $patient) }}" class="btn btn-sm btn-outline-warning">
+                <i class="bx bx-edit me-1"></i>{{ __('app.edit') }}
+            </a>
             <a href="{{ route('doctor.patients.medical-history', $patient) }}" class="btn btn-sm btn-outline-primary">
                 <i class="bx bx-file-blank me-1"></i>{{ __('patients.medical_history') }}
             </a>
@@ -45,7 +48,7 @@
                     </div>
                     <div class="col-md-6">
                         <small class="text-muted d-block">{{ __('app.gender') }}</small>
-                        {{ $patient->user->gender ? __('app.'.$patient->user->gender) : '—' }}
+                        {{ $patient->user->gender ? __('app.'.$patient->user->gender->value) : '—' }}
                     </div>
                     <div class="col-md-6">
                         <small class="text-muted d-block">{{ __('app.date_of_birth') }}</small>

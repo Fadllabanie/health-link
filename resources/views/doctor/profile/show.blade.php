@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-6">
                         <small class="text-muted d-block">{{ __('app.gender') }}</small>
-                        {{ $doctor->user->gender ? __('app.'.$doctor->user->gender) : '—' }}
+                        {{ $doctor->user->gender ? __('app.'.$doctor->user->gender->value) : '—' }}
                     </div>
                     <div class="col-md-6">
                         <small class="text-muted d-block">{{ __('doctors.joined_at') }}</small>

@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'openweathermap' => [
+        'key' => env('OPENWEATHERMAP_API_KEY'),
+        'city' => env('OPENWEATHERMAP_CITY', 'Riyadh'),
+    ],
+
 ];

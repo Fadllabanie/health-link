@@ -6,6 +6,9 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">{{ __('patients.patients') }}</h5>
+        <a href="{{ route('doctor.patients.create') }}" class="btn btn-sm btn-primary">
+            <i class="bx bx-plus me-1"></i>{{ __('patients.add_patient') }}
+        </a>
     </div>
 
     <div class="card-body border-bottom pb-3">
@@ -37,7 +40,7 @@
                     <tr>
                         <td>{{ $patient->user->full_name }}</td>
                         <td><code>{{ $patient->medical_record_number }}</code></td>
-                        <td>{{ $patient->user->gender ? __('app.'.$patient->user->gender) : '—' }}</td>
+                        <td>{{ $patient->user->gender ? __('app.'.$patient->user->gender->value) : '—' }}</td>
                         <td>{{ $patient->blood_type?->value ?? '—' }}</td>
                         <td>
                             <a href="{{ route('doctor.patients.show', $patient) }}" class="btn btn-sm btn-outline-primary">
@@ -46,6 +49,15 @@
                             <a href="{{ route('doctor.patients.medical-history', $patient) }}" class="btn btn-sm btn-outline-secondary">
                                 {{ __('patients.medical_history') }}
                             </a>
+                            <a href="{{ route('doctor.patients.edit', $patient) }}" class="btn btn-sm btn-outline-warning">
+                                {{ __('app.edit') }}
+                            </a>
+                            <form action="{{ route('doctor.patients.destroy', $patient) }}" method="POST" class="d-inline"
+                                onsubmit="return confirm('{{ __('patients.confirm_delete_patient') }}')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">{{ __('app.delete') }}</button>
+                            </form>
                         </td>
                     </tr>
                 @empty

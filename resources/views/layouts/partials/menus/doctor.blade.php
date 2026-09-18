@@ -9,6 +9,25 @@
     <span class="menu-header-text">{{ __('app.management') }}</span>
 </li>
 
+<li class="menu-item {{ request()->routeIs('doctor.patients*') ? 'active open' : '' }}">
+    <a href="#" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-group"></i>
+        <div>{{ __('patients.patients') }}</div>
+    </a>
+    <ul class="menu-sub">
+        <li class="menu-item {{ request()->routeIs('doctor.patients.index') ? 'active' : '' }}">
+            <a href="{{ route('doctor.patients.index') }}" class="menu-link">
+                <div>{{ __('patients.patients') }}</div>
+            </a>
+        </li>
+        <li class="menu-item {{ request()->routeIs('doctor.patients.create') ? 'active' : '' }}">
+            <a href="{{ route('doctor.patients.create') }}" class="menu-link">
+                <div>{{ __('patients.add_patient') }}</div>
+            </a>
+        </li>
+    </ul>
+</li>
+
 <li class="menu-item {{ request()->routeIs('doctor.prescriptions*') ? 'active open' : '' }}">
     <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-file"></i>

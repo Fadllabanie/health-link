@@ -52,6 +52,18 @@ class AuthenticatedSessionController extends Controller
             return route('hospital-admin.dashboard');
         }
 
+        if ($user->hasRole('doctor')) {
+            return route('doctor.dashboard');
+        }
+
+        if ($user->hasRole('pharmacist')) {
+            return route('pharmacy.dashboard');
+        }
+
+        if ($user->hasRole('patient')) {
+            return route('patient.dashboard');
+        }
+
         return route('dashboard');
     }
 }
