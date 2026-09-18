@@ -3,12 +3,9 @@
 @section('title', __('patients.portal_dashboard'))
 
 @section('content')
-<div class="row">
-    <div class="col-12 mb-4">
-        <h5 class="mb-0">{{ __('patients.welcome_patient', ['name' => $patient->user->first_name]) }}</h5>
-        <small class="text-muted">{{ __('patients.portal_subtitle') }}</small>
-    </div>
+<x-welcome-card />
 
+<div class="row">
     {{-- Stats --}}
     <div class="col-md-4 mb-4">
         <div class="card text-center h-100">

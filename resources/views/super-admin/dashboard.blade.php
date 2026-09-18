@@ -3,6 +3,8 @@
 @section('title', __('app.dashboard'))
 
 @section('content')
+<x-welcome-card />
+
 {{-- Stats Cards --}}
 <div class="row g-4 mb-4">
     <div class="col-sm-6 col-xl-3">
